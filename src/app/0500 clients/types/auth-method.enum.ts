@@ -1,0 +1,5 @@
+export enum AuthMethodEnum {
+    CLIENT_SECRET_BASIC = "CLIENT_SECRET_BASIC",
+    CLIENT_SECRET_POST = "CLIENT_SECRET_POST",
+    NONE = "NONE"    
+}

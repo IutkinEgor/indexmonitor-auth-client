@@ -1,0 +1,5 @@
+export { ScopeRegisterInterface } from './scope-register.interface'
+export { ScopeSettingsInterface } from './scope-settings.interface'
+export { ScopePageInterface } from './scope-page.interface'
+export { ScopeUpdateInterface } from './scope-update.interface'
+export { ScopeUsageByClientInterface } from './scope-usage-by-client.interface'

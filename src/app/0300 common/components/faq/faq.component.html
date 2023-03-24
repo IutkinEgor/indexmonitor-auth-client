@@ -1,0 +1,188 @@
+<div>
+    <mat-card class="shadow">
+        <mat-card-header class="mb-3">
+            <mat-card-title>
+                Frequently Asked Questions
+            </mat-card-title>
+            
+        </mat-card-header>
+        <mat-card-content>
+            <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What is authentication server?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>An authorization server is a server that is responsible for verifying the identity of a user and granting permissions to access resources. It typically uses the OAuth 2.0 protocol to enable clients to request access to protected resources on behalf of a user.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What is a client?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>A client is an application that is trying to access protected resources on behalf of a user. It can be a web application, mobile application, or any other type of application that needs to access protected resources.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What is a scope?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>A scope is a permission that is granted by the authorization server to the client. It defines the level of access that the client has to protected resources. For example, a scope might grant read-only access to a user's profile data.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        How does scope and client relate to each other?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>The client requests specific scopes from the authorization server during the authorization process. The authorization server grants those scopes to the client if the user approves the request.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Who is the user and resource owner?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>The user is the individual who is trying to access the protected resource. The resource owner is the entity that owns the resource that the user is trying to access, typically user itself. The user must be authorized by the resource server to access the protected resource.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        hat is a role?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>A role is a set of permissions or privileges that are granted to a user within an organization or system.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What is an authority?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>An authority is a set of permissions or privileges that are granted to a user within an organization or system.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        How does authority and role relate to each other?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>Authority and role is same level permission or privileges declaration. For authorization server both of them have same behavior. Idea behaind is to bring more flexibility to the system by utilizing two separate restriction category.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        How does role and authority relate to user?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>A user can have multiple roles and authorities which determines their level of access to resource servers.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What is the difference between role, authority, and scope?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>Authority and role is permissions granted by authorization server to the user to determines their level of access protected resources. A scope is a permission granted by the authorization server to the client to access protected resources.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Where is scope stored?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>Scopes are typically stored in the authorization server's database and after success authorization request are sended back with ID token that is issued to the client.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Where are authority and role stored?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>Scopes are typically stored in the authorization server's database and after success authorization request are sended back with Access token that is issued to the user.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        How does the authorization server authenticate users?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>The authorization server typically authenticates users by verifying their credentials, such as a username and password, against a user database or directory.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What is a refresh token?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>A refresh token is a token that is used to obtain a new access token from the authorization server after the original access token has expired.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What is an authentication method?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>An authentication method is a mechanism used to verify the identity of a user or client application. Different authentication methods have different security characteristics and are suitable for different use cases.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What do the authentication methods "CLIENT_SECRET_POST", "CLIENT_SECRET_BASIC", and "NONE" do?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>The "CLIENT_SECRET_POST" and "CLIENT_SECRET_BASIC" authentication methods are used to authenticate client applications using a secret key that is shared between the client and the authorization server. The "NONE" authentication method is used when no authentication is required.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What are grant types?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>Grant types are a set of methods used in OAuth 2.0 authentication to obtain an access token. Different grant types have different security characteristics and are suitable for different use cases.</p>
+                        <p>The "AUTHORIZATION_CODE" grant type is a method used to obtain an access token by exchanging an authorization code obtained from the authorization server for an access token.</p>    
+                        <p>The "CLIENT_CREDENTIALS" grant type is a type of OAuth 2.0 grant that enables a client application to request an access token using its own credentials (client ID and client secret) without involving a user. </p>
+                        <p>The "REFRESH_TOKEN" grant type is a method used to obtain a new access token from the authorization server using a previously obtained refresh token. This allows a client application to obtain a new access token without requiring the user to re-authenticate.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Where are authority and role stored?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>Scopes are typically stored in the authorization server's database and after success authorization request are sended back with Access token that is issued to the user.</p>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Where are authority and role stored?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                        <p>Scopes are typically stored in the authorization server's database and after success authorization request are sended back with Access token that is issued to the user.</p>
+            </mat-expansion-panel>
+            </mat-accordion>
+            <mat-divider></mat-divider>
+        </mat-card-content>  
+    </mat-card>
+</div>

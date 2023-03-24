@@ -1,0 +1,46 @@
+<div class="mt-3">
+    <div class="row" *ngIf="(isLoading$ | async) === true">
+        <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+    </div>
+    <div *ngIf="(isLoadSuccess$ | async)">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-3">
+                </div>  
+                <div class="col-md-6">
+                    <div class="row mb-3">
+                        <div mat-card-subtitle>Created at: {{ createdAt | date}}</div>                   
+                    </div>
+                    <div class="row mb-3">
+                        <div mat-card-subtitle>Created by: <a [routerLink]="'/users/' + createdBy">{{ createdBy }}</a></div>   
+                    </div>
+                    <div class="row mb-3">
+                        <mat-form-field class="w-100 mt-1" appearance="outline" color="primary">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name">
+                        </mat-form-field>
+                    </div>
+                    <div class="row mb-3">
+                        <mat-form-field class="w-100 mt-1" appearance="outline" color="primary">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput formControlName="description"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="row mb-3">
+                        <mat-slide-toggle formControlName="isEnable" color="primary">Is enable</mat-slide-toggle>
+                    </div>
+                    <div class="row mb-3">
+                        <mat-slide-toggle formControlName="isObtainable" color="primary">Is obtainable</mat-slide-toggle>
+                    </div>
+                    <div class="row mb-3">
+                        <div>
+                            <button class="float-end" mat-raised-button color="primary" [disabled]="formValidation != 'VALID'" (click)="update()">Update</button>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-md-3">
+                </div>  
+            </div>
+        </form>
+    </div>
+</div>  

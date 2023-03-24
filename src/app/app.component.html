@@ -1,0 +1,18 @@
+<div>
+    <app-header [sidenavToggle]="sidenav"></app-header>
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav [mode]="componentMode" [opened]="componentToggle">
+        <div class="p-3 h-100" *ngIf="(screenSizeBreakpoint$ | async) === true">
+          <app-sidenav></app-sidenav>
+          </div>
+          <div class="h-100" *ngIf="(screenSizeBreakpoint$ | async) === false">
+            <app-sidenav></app-sidenav>
+            </div>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <div class="p-3 h-100 mb-2">
+          <router-outlet></router-outlet>
+        </div> 
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

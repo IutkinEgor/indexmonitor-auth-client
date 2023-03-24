@@ -1,0 +1,94 @@
+<div class="mt-3">
+    <div class="row" *ngIf="(isLoading$ | async) === true">
+        <mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+    </div>
+    <div *ngIf="(isSuccess$ | async)">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-3">
+                </div>  
+                <div class="col-md-6">
+                    <div class="row mb-2">
+                        <mat-form-field appearance="outline" color="primary">
+                            <mat-label>Client Id</mat-label>
+                            <input matInput formControlName="clientId" placeholder="angular-web-security-ui">
+                        </mat-form-field>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-form-field appearance="outline" color="primary">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="angular-web-security-ui">
+                        </mat-form-field>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-form-field appearance="outline" color="primary">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput formControlName="description"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-form-field appearance="outline" color="primary">
+                            <mat-label>Authentication Method</mat-label>
+                            <mat-select formControlName="authenticationMethods">
+                                <mat-option *ngFor="let method of authMethodEnum" [value]="method">
+                                    {{method}}
+                                </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="row mb-2 justify-content-center">
+                        <div formArrayName="authorizationGrantTypes" *ngFor="let grantType of grantTypes.controls; let i = index;">
+                            <mat-form-field class="w-100 mb-2" appearance="outline" color="primary" [formGroupName]="i">
+                                <mat-label>Grant Type</mat-label>
+                                <mat-select formControlName="type">
+                                    <mat-option *ngFor="let typeEnum of authGrantTypeEnum" [value]="typeEnum">
+                                        {{typeEnum}}
+                                    </mat-option>
+                                    </mat-select>
+                                    <button mat-icon-button matSuffix *ngIf="authGrantTypeSlots < 3" (click)="removeGrantType(i)">
+                                    <mat-icon>{{'delete'}}</mat-icon>
+                                    </button>
+                            </mat-form-field>
+                        </div>
+                        <button mat-icon-button class="mb-2" *ngIf="authGrantTypeSlots > 0" (click)="addGrantType()">
+                            <mat-icon class="add-course-btn">add</mat-icon>
+                        </button>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-form-field appearance="outline" color="primary">
+                            <mat-label>Origin</mat-label>
+                            <input matInput formControlName="origin" placeholder="http://hostname:portname">
+                        </mat-form-field>
+                    </div>
+                    <div class="row mb-2 justify-content-center">
+                        <div formArrayName="redirectUris" *ngFor="let redirectUri of redirectUris.controls; let i = index;">
+                            <mat-form-field class="w-100 mb-2" appearance="outline" color="primary" [formGroupName]="i">
+                                <mat-label>Redirect URI</mat-label>
+                                <input matInput type="url" formControlName="uri" placeholder="http://hostname:portname/authorized.html">
+                                <button mat-icon-button matSuffix *ngIf="redirectUrisSlots >= 2" (click)="removeRedirectUri(i)">
+                                    <mat-icon>{{'delete'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <button mat-icon-button class="mb-2" *ngIf="redirectUrisSlots > 0" (click)="addRedirectUri()">
+                            <mat-icon class="add-course-btn">add</mat-icon>
+                        </button>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-slide-toggle formControlName="requireProofKey" color="primary">Is require proof key</mat-slide-toggle>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-slide-toggle formControlName="requireAuthorizationConsent" color="primary">Is require authorization consent</mat-slide-toggle>
+                    </div>
+                    <div class="row mb-3">
+                        <div>
+                            <button class="float-end" mat-raised-button color="primary" [disabled]="formValidation != 'VALID'" (click)="update()">Update</button>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-md-3">
+                </div>  
+            </div>
+        </form>
+    </div>
+</div>  

@@ -1,0 +1,42 @@
+<div class="container-fluid mt-4">
+    <div class="row" *ngIf="(isLoading$ | async) === true">
+        <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+    </div>
+    <div *ngIf="(isLoadSuccess$ | async)">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mb-2">
+                        <mat-form-field class="w-100" appearance="outline" color="accent">
+                            <mat-label>Username</mat-label>
+                            <input matInput formControlName="userName">
+                        </mat-form-field>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-slide-toggle formControlName="isEnabled">Is enabled</mat-slide-toggle>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-slide-toggle formControlName="isUserNonLocked">isUserNonLocked</mat-slide-toggle>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-slide-toggle formControlName="isCredentialsNonExpired">isCredentialsNonExpired</mat-slide-toggle>
+                    </div>
+                    <div class="row mb-2">
+                        <mat-slide-toggle formControlName="isUserNonExpired">isUserNonExpired</mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>  
+            </div>
+            <div class="row"> 
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <button mat-raised-button class="float-end" color="primary" [disabled]="formValidation != 'VALID'" (click)="update()">Update</button>
+                    </div>
+                </div>
+            </div>    
+        </form>
+    </div>
+</div>  

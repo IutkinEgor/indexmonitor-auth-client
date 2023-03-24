@@ -1,0 +1,10 @@
+.clickable {
+    cursor: pointer;
+    &:hover {
+      //@include mat-elevation(8);
+      box-shadow: 4em;
+    }
+  }
+  mat-card{
+    height: 100%;
+  }

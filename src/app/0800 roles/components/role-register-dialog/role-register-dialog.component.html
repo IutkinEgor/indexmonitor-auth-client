@@ -1,0 +1,38 @@
+
+<div>
+    <h2 mat-dialog-title>Register role</h2>
+    <mat-dialog-content>
+        <form [formGroup]="form">
+            <div class="row mb-2 mt-1">
+                <mat-form-field appearance="outline" color="primary">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" placeholder="client.read">
+                </mat-form-field>
+            </div>
+            <div class="row mb-3">
+                <mat-form-field appearance="outline" color="primary" subscriptSizing="dynamic">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="row mb-3">
+                <mat-slide-toggle formControlName="isEnable" color="primary">Is scope enable</mat-slide-toggle>
+            </div>
+            <div class="row mb-3">
+                <mat-slide-toggle formControlName="isObtainable" color="primary">Is scope obtainable</mat-slide-toggle>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button mat-button [mat-dialog-close]="null" class="w-100">Cancel</button>
+                </div>
+                <div class="col-6">
+                    <button mat-raised-button color="accent" class="w-100"
+                    [disabled]="formValidation != 'VALID'"
+                    (click)="submit()">
+                    Confirm
+                </button>
+                </div>
+            </div>
+        </form>    
+    </mat-dialog-content>    
+</div>

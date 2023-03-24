@@ -1,0 +1,89 @@
+<div class="conteiner-fluid">
+    <div class="row justify-content-center ">
+        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-3">
+            <mat-card matRipple class="clickable shadow" (click)="navigateTo('/clients')">
+              <mat-card-header class="mb-2">
+                <mat-card-title>Clients</mat-card-title>
+              </mat-card-header>
+              <div class="text-center mb-3">
+                <img mat-card-lg-image [src]="'assets/icons/client.svg'" alt="image">
+              </div>
+              <mat-card-content class="mb-3">
+                <span>
+                  A third-party application that wants access to the private resources of the resource owner.
+                </span>
+              </mat-card-content>
+              <mat-card-footer></mat-card-footer>
+            </mat-card>   
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-3">
+          <mat-card matRipple class="clickable shadow" (click)="navigateTo('/scopes')">
+            <mat-card-header class="mb-2">
+              <mat-card-title>Scopes</mat-card-title>
+            </mat-card-header>
+            <div class="text-center mb-3">
+              <img mat-card-lg-image [src]="'assets/icons/scopes.svg'" alt="image">
+            </div>
+            <mat-card-content class="mb-3">
+              <span>
+                Represent sing claim or list of claims that client requaried from reosource server.
+              </span>
+            </mat-card-content>
+            <mat-card-footer></mat-card-footer>
+          </mat-card>   
+        </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-3">
+        <mat-card matRipple class="clickable shadow" (click)="navigateTo('/users')">
+          <mat-card-header class="mb-2">
+            <mat-card-title>Users</mat-card-title>
+          </mat-card-header>
+          <div class="text-center mb-3">
+            <img mat-card-lg-image [src]="'assets/icons/users.svg'" alt="image">
+          </div>
+          <mat-card-content class="mb-3">
+            <span>
+              Resource owner who authorizes client to access their account and protected data.
+            </span>
+          </mat-card-content>
+          <mat-card-footer></mat-card-footer>
+        </mat-card>   
+      </div>
+      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-3">
+        <mat-card matRipple class="clickable shadow" (click)="navigateTo('/roles')">
+          <mat-card-header class="mb-2">
+            <mat-card-title>Roles</mat-card-title>
+          </mat-card-header>
+          <div class="text-center mb-3">
+            <img mat-card-lg-image [src]="'assets/icons/id-card.svg'" alt="image">
+          </div>
+          <mat-card-content class="mb-3">
+            <span>
+              Claim or permissions of a Client acting on its own behalf and there is no User involvement.
+            </span>
+          </mat-card-content>
+          <mat-card-footer></mat-card-footer>
+        </mat-card>
+      </div>
+      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-3">
+        <mat-card matRipple class="clickable shadow" (click)="navigateTo('/authorities')">
+          <mat-card-header class="mb-2">
+            <mat-card-title>Authorities</mat-card-title>
+          </mat-card-header>
+          <div class="text-center mb-3">
+            <img mat-card-lg-image [src]="'assets/icons/authorities.svg'" alt="image">
+          </div>
+          <mat-card-content class="mb-3">
+            <span>
+              Claim or permissions of a Client acting on its own behalf and there is no User involvement.
+            </span>
+          </mat-card-content>
+          <mat-card-footer></mat-card-footer>
+        </mat-card>   
+      </div>
+  </div>
+</div>
+
+
+

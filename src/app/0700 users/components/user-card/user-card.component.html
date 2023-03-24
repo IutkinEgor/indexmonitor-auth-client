@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <mat-card class="shadow">
+        <mat-card-content>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <h3>Record Id: {{id}}</h3>
+                </div>
+            </div>
+            <div class="row md-2">
+                  <nav mat-tab-nav-bar mat-stretch-tabs="false" mat-align-tabs="start" [tabPanel]="tabPanel">
+                    <a mat-tab-link 
+                       [routerLink]="'/users/' + id + '/settings'" 
+                       #rlaUserSettings="routerLinkActive"
+                       [active]="rlaUserSettings.isActive" 
+                       routerLinkActive>Settings</a>
+                    <a mat-tab-link 
+                       [routerLink]="'/users/' + id + '/profile'" 
+                       #rlaUserProfile="routerLinkActive"
+                       [active]="rlaUserProfile.isActive" 
+                       routerLinkActive>Profile</a>
+                       <a mat-tab-link 
+                       [routerLink]="'/users/' + id + '/roles'" 
+                       #rlaUserRoles="routerLinkActive"
+                       [active]="rlaUserRoles.isActive" 
+                       routerLinkActive>Roles</a>
+                       <a mat-tab-link 
+                       [routerLink]="'/users/' + id + '/authorities'" 
+                       #rlaUserAuthorities="routerLinkActive"
+                       [active]="rlaUserAuthorities.isActive" 
+                       routerLinkActive>Authorities</a>
+                  </nav> 
+                  <mat-tab-nav-panel #tabPanel>
+                    <router-outlet></router-outlet>	
+                  </mat-tab-nav-panel>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

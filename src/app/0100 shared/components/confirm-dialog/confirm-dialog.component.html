@@ -1,0 +1,25 @@
+<div>
+    <div mat-dialog-title>
+        {{data.header}}
+    </div>
+    <mat-dialog-content>
+        <div class="mb-3">
+            {{data.message}}
+        </div>
+       
+        <div class="row mb-2">
+            <div class="col-6">
+              <button mat-button [mat-dialog-close]="false">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button   cdkFocusInitial
+                  class="float-end"    
+                  color={{data.level}}
+                  mat-raised-button
+                  [mat-dialog-close]="true">
+                  Confirm
+                </button>
+            </div>
+        </div>
+    </mat-dialog-content>
+</div>

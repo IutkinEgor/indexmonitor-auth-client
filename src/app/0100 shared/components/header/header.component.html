@@ -1,0 +1,34 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <a mat-button *ngIf="(isAuthenticated$ | async)" routerLinkActive="list-item-active" (click)="sidenavToggle.toggle()"><mat-icon>menu</mat-icon></a>
+      <!-- <span>MyApp</span>   -->
+      <a mat-button routerLink="home" *ngIf="(isAuthenticated$ | async)">Home</a>
+      <a mat-button routerLink="welcome" *ngIf="(isAuthenticated$ | async) === false">Welcome</a>
+      <a mat-button routerLink="faq">FAQ</a>
+      <a mat-button (click)="register()">Register</a>
+      <div class="flex-spacer"></div>
+      <a mat-button (click)="testSnackbarInfo()">I</a>
+      <a mat-button  *ngIf="(isAuthenticated$ | async) === false" (click)="connect()">Connect</a>
+      <button mat-button [matMenuTriggerFor]="menu" *ngIf="(isAuthenticated$ | async)">User <mat-icon>keyboard_arrow_down</mat-icon></button>
+      <mat-menu #menu="matMenu" xPosition="before" style="min-width: 200px;" [class.custom-width]="true">
+        <div class="me-4 ms-4">
+          <div class="row text-center md-2">
+              <div mat-card-title>USER<mat-icon>supervised_user_circle</mat-icon>ID</div>
+          </div>
+          <div class="row text-center">
+            <div mat-card-title>{{userInfo['nickname']}}</div>
+          </div>
+          <div class="row text-center mb-3">
+            <div mat-card-subtitle>{{userInfo['name']}}</div>
+          </div>
+          <div class="row text-center mb-1">
+            <button mat-menu-item >Account Settings</button>
+          </div>
+          <div class="row text-center mb-1">
+            <button mat-menu-item (click)="disconnect()">Disconnect</button>
+          </div>  
+        </div>    
+      </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
+

@@ -1,0 +1,40 @@
+<div class="container">
+  <p mat-dialog-title>Authorization server connection settings</p>
+  <mat-dialog-content>
+    <form [formGroup]="form">
+      <div class="row mb-2">
+        <mat-form-field appearance="outline" color="primary">
+            <mat-label>Authorization server host url</mat-label>
+            <input matInput formControlName="issuer" placeholder="http://host:port">
+        </mat-form-field>
+      </div>
+      <div class="row mb-2">
+        <mat-form-field appearance="outline" color="primary">
+            <mat-label>Client Id</mat-label>
+            <input matInput formControlName="clientId" placeholder="auth_server_ui">
+        </mat-form-field>
+      </div>
+      <div class="row mb-2">
+        <mat-form-field appearance="outline" color="primary">
+            <mat-label>Client dummy secret</mat-label>
+            <input matInput formControlName="clientSecret" type="password">
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-6">
+        <button mat-button [mat-dialog-close]="null">Cancel</button>
+      </div>
+      <div class="col-6">
+          <button   
+            class="float-end"    
+            color="accent"
+            mat-raised-button
+            [disabled]="form.invalid"
+            (click)="connect()">
+            Connect
+          </button>
+      </div>
+    </div>
+  </mat-dialog-content>  
+</div>

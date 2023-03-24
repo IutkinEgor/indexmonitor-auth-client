@@ -1,0 +1,5 @@
+export { RolePageInterface } from './role-page.interface'
+export { RoleRegisterInterface } from './role-register.interface'
+export { RoleSettingsInterface } from './role-settings.interface'
+export { RoleSettingsUpdateInterface } from './role-settings.interface'
+export { RoleUsageByUsersInterface } from './role-usage-by-users.interface'

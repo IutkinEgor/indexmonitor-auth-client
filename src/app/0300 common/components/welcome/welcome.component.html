@@ -1,0 +1,44 @@
+<div class="h-100 d-flex align-items-center">
+    <div class="container">
+        <mat-card class="shadow justify-content-center">
+            <mat-card-content>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="row mb-2">
+                            <h2 class="text-center">Welcome to our Authentication Server!</h2>
+                            <p>
+                                We are delighted to have you here. Our service is designed to provide secure authentication and authorization to your applications. As an administrator or manager, you have complete control over the server, clients, users, scopes, roles, and authorities. This allows you to assign scopes, roles, and authorities to users based on their privileges and permissions.
+                            </p>
+                            <p>
+                                Our Authentication Server is built on the principles of OAuth2 and OpenID Connect. This means that it provides secure and reliable access to your applications and APIs, enabling seamless integration with your existing infrastructure. With our service, you can ensure that only authorized users have access to your applications and data.
+                            </p>
+                            <p>
+                                If you are new to our service, we recommend that you start by reading our FAQ page, which contains answers to some of the most commonly asked questions. You can also find a link to our login page, where you can access the server and manage your settings.
+                            </p>   
+                            <p>
+                                We are confident that our service will meet all your authentication and authorization needs. Thank you for choosing our Authentication Server!
+                            </p>  
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-center">
+                                <button mat-raised-button color="primary" class="w-100" [routerLink]="'/faq'">Read FAQ</button>
+                            </div>
+                            <div class="col-6 text-center">
+                                <button mat-raised-button color="accent" class="w-100" (click)="connect()">Connect to server</button>
+                            </div>
+                        </div>
+           
+                    </div>
+                    <div class="col-md-6">
+                        <div class="m-2">
+                            <img class="img-fluid" [src]="'assets/imgs/welcome.svg'" alt="image">
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>  
+        </mat-card>
+    </div>
+    
+</div>
+
+

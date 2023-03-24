@@ -1,0 +1,12 @@
+
+
+mat-sidenav-container {
+    height: calc(100vh - 64px);
+    background-color: var(--app-background-primary);
+}
+mat-sidenav{
+    width: 250px;
+    border-right: none;
+    background-color: var(--app-background-primary);
+   // background-color: var(--app-background-primary);    
+}

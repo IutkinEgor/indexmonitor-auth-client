@@ -1,0 +1,28 @@
+:root {
+    --info-color: #3ab9d9;
+    --success-color: #3ad44f;
+    --error-color: #855959;
+}
+
+.info-snackbar {
+    color: white;
+    --mdc-snackbar-container-color: var(--info-color); 
+    .mat-simple-snackbar-action {
+      color: white;
+    }
+}
+.success-snackbar {
+    color: white;
+    --mdc-snackbar-container-color: var(--success-color); 
+    .mat-simple-snackbar-action {
+      color: white;
+    }
+}
+
+.error-snackbar {
+    color: rgb(236, 178, 178);
+    --mdc-snackbar-container-color: var(--error-color); 
+    .mat-simple-snackbar-action {
+      color: white;
+    }
+}

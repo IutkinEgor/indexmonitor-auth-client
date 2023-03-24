@@ -1,0 +1,81 @@
+<div  class="container-fluid">
+    <p mat-dialog-title>Avalible roles</p>
+    <mat-dialog-content>
+        <div class="row mb-2" *ngIf="(isLoading$ | async) === true">
+            <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+        </div>
+        <div class="row mb-2" *ngIf="(isLoadedSuccess$ | async) === true && avalibleRoles.length === 0">
+          <span>There are no available roles.</span>
+        </div>
+        <div *ngIf="(isLoadedSuccess$ | async) === true && avalibleRoles.length > 0">
+            <div class="row mt-1">
+                <mat-form-field class="w-100" appearance="outline"  subscriptSizing="dynamic" color="accent"  >
+                    <mat-label>Filter</mat-label>
+                    <input
+                      matInput
+                      (keyup)="applyFilter($event)"
+                      #input
+                    />
+                  </mat-form-field>
+            </div>
+            <div class="row overflow-auto">
+              <table
+                class="h-100"
+                mat-table
+                [dataSource]="dataSource"
+                matSort
+              >
+              <!-- Id Column -->
+              <ng-container matColumnDef="roleId">
+                <th hidden mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                <td hidden mat-cell *matCellDef="let element">
+                  {{ element.roleId }}
+                </td>
+              </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="roleName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.roleName }}
+                </td>
+              </ng-container>
+              <!-- Add Column -->
+              <ng-container matColumnDef="add">
+                <th mat-header-cell *matHeaderCellDef>Add</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button *ngIf="!selectedList.includes(element.roleId)"
+                    (click)="add(element.roleId)"
+                  >
+                    <mat-icon>add_circle_outline</mat-icon>              
+                  </button>
+                  <button mat-icon-button color="warn" *ngIf="selectedList.includes(element.roleId)"
+                  (click)="remove(element.roleId)"
+                >
+                    <mat-icon>remove_circle_outline</mat-icon>              
+                </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
+            </table>
+            </div>
+            <div class="row">
+              <mat-paginator
+              [length]="tableColumns.length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="[5, 10, 20, 50, 100]"
+              color="primary"
+              (page)="loadPage($event)"
+              >
+              </mat-paginator>  
+            </div>
+        </div> 
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <div class="w-100">
+                <button mat-button [mat-dialog-close]="null">Cancel</button>
+                <button mat-button class="float-end" (click)="confirm()" [disabled]="avalibleRoles.length == 0">Confirm</button>
+        </div>
+    </mat-dialog-actions>
+    
+</div>
