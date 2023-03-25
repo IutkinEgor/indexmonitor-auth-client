@@ -29,7 +29,14 @@ export class UserEffects {
         ))
         )
     );
-
+    userSettingsUpdate$ = createEffect(() => this.actions$.pipe(
+        ofType(fromUserAction.userSettingsUpdateRequest),
+        switchMap(({userId, payload}) => this.userService.updateUserSettings(userId,payload).pipe(
+            map(payload =>  fromUserAction.userSettingsUpdateSuccess({payload})),
+            catchError(error => of(fromUserAction.userSettingsUpdateFailure({payload: error.error})))
+        ))
+        )
+    );
     userPofileLoad$ = createEffect(() => this.actions$.pipe(
         ofType(fromUserAction.userProfileLoadRequest),
         switchMap(({userId}) => this.userService.loadUserProfile(userId).pipe(
@@ -38,7 +45,14 @@ export class UserEffects {
         ))
         )
     );
-
+    userProfileUpdate$ = createEffect(() => this.actions$.pipe(
+        ofType(fromUserAction.userProfileUpdateRequest),
+        switchMap(({userId, payload}) => this.userService.updateUserProfile(userId,payload).pipe(
+            map(payload =>  fromUserAction.userProfileUpdateSuccess({payload})),
+            catchError(error => of(fromUserAction.userProfileUpdateFailure({payload: error.error})))
+        ))
+        )
+    );
     userRolesLoad$ = createEffect(() => this.actions$.pipe(
         ofType(fromUserAction.userRolesLoadRequest),
         switchMap(({userId}) => this.userService.loadUserRoles(userId).pipe(

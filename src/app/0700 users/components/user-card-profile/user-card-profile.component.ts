@@ -10,6 +10,8 @@ import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 import * as fromUserTypes from '../../types/_index';
 import * as fromUserAction from '../../store/user.action';
 import * as fromUserSelector from '../../store/user.selector';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/0100 shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-user-card-profile',
@@ -24,7 +26,7 @@ export class UserCardProfileComponent {
   form: FormGroup;
   formValidation: FormControlStatus;
 
-  constructor(private store: Store, private actionsSubject: ActionsSubject, private route: ActivatedRoute, private formBuilder: FormBuilder){}
+  constructor(private store: Store, private dialog: MatDialog, private actionsSubject: ActionsSubject, private route: ActivatedRoute, private formBuilder: FormBuilder){}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -32,10 +34,10 @@ export class UserCardProfileComponent {
     this.isLoading$ = this.store.pipe(select(fromUserSelector.isUserProfileLoading));
     this.isLoadSuccess$ = this.store.pipe(select(fromUserSelector.isUserProfileLoadedSuccess));
     this.store.select(fromUserSelector.getUserProfileData).subscribe((data)=> { if(data)  this.initializeValue(data) });
-    // this.actionsSubject.pipe(ofType(fromUserAction.userProfileUpdateSuccess)).subscribe(() => {
-    //   this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("User Profile updated.")}));
-    //   this.store.dispatch(fromUserAction.userProfileLoadRequest({ userId: this.route.parent?.snapshot.params['userId'] as string }));
-    // });
+    this.actionsSubject.pipe(ofType(fromUserAction.userProfileUpdateSuccess)).subscribe(() => {
+      this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("User Profile updated.")}));
+      this.store.dispatch(fromUserAction.userProfileLoadRequest({ userId: this.route.parent?.snapshot.params['userId'] as string }));
+    });
   }
 
   initializeForm(): void {
@@ -45,7 +47,6 @@ export class UserCardProfileComponent {
       email:  ['', Validators.required],
       emailConfirmed: ['', Validators.required],
     });
-    this.form.disable();
     this.form.statusChanges.subscribe(val => this.formValidation = val);
   }
 
@@ -54,5 +55,28 @@ export class UserCardProfileComponent {
         this.form.get("familyName")?.setValue(data.familyName);
         this.form.get("email")?.setValue(data.email);  
         this.form.get("emailConfirmed")?.setValue(data.emailConfirmed);
+  }
+
+  update(){
+    let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        header: "Update user",
+        message: `Update user profile?`,
+        level: fromSharedTypes.ConfirmDialogLevelEnum.accent
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.store.dispatch(fromUserAction.userProfileUpdateRequest({
+          userId: this.route.parent?.snapshot.params['userId'] as string, 
+          payload: {
+            givenName: this.form.value.givenName,
+            familyName: this.form.value.familyName,
+            email: this.form.value.email,
+            emailConfirmed: this.form.value.emailConfirmed
+          }
+      }))
+      }});
   }
 }

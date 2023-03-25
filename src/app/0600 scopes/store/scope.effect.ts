@@ -22,7 +22,7 @@ export class ScopeEffects {
     );
     loadScopeSettings$ = createEffect(() => this.actions$.pipe(
         ofType(fromScopeAction.scopeSettingsLoadRequest),
-        switchMap(({id}) => this.scopeService.loadScopeSettings(id).pipe(
+        switchMap(({scopeId}) => this.scopeService.loadScopeSettings(scopeId).pipe(
             map(payload =>  fromScopeAction.scopeSettingsLoadSuccess({payload})),
             catchError(error => of(fromScopeAction.scopeSettingsLoadFailure({payload: error.error})))
         ))
@@ -30,7 +30,7 @@ export class ScopeEffects {
     );
     loadScopeUsageByClients$ = createEffect(() => this.actions$.pipe(
         ofType(fromScopeAction.scopeUsageByClientsLoadRequest),
-        switchMap(({id}) => this.scopeService.loadScopeUsageByClients(id).pipe(
+        switchMap(({scopeId}) => this.scopeService.loadScopeUsageByClients(scopeId).pipe(
             map(payload =>  fromScopeAction.scopeUsageByClientsLoadSuccess({payload})),
             catchError(error => of(fromScopeAction.scopeUsageByClientsLoadFailure({payload: error.error})))
         ))
@@ -46,7 +46,7 @@ export class ScopeEffects {
     );
     updateScope$ = createEffect(() => this.actions$.pipe(
         ofType(fromScopeAction.scopeSettingsUpdateRequest),
-        switchMap(({id, payload}) => this.scopeService.updateScopeSettings(id, payload).pipe(
+        switchMap(({scopeId, payload}) => this.scopeService.updateScopeSettings(scopeId, payload).pipe(
             map(payload =>  fromScopeAction.scopeSettingsUpdateSuccess({payload})),
             catchError(error => of(fromScopeAction.scopeSettingsUpdateFailure({payload: error.error})))
         ))
@@ -55,7 +55,7 @@ export class ScopeEffects {
 
     deleteScope$ = createEffect(() => this.actions$.pipe(
         ofType(fromScopeAction.scopeDeleteRequest),
-        switchMap(({id}) => this.scopeService.deleteScope(id).pipe(
+        switchMap(({scopeId}) => this.scopeService.deleteScope(scopeId).pipe(
             map(payload =>  fromScopeAction.scopeDeleteSuccess({payload})),
             catchError(error => of(fromScopeAction.scopeDeleteFailure({payload: error.error})))
         ))

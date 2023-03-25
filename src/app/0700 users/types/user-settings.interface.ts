@@ -1,5 +1,5 @@
 export interface UserSettingsInterface {
-    id: string;
+    createdAt: number;
     userName: string;
     isUserNonExpired: boolean;
     isUserNonLocked: boolean;

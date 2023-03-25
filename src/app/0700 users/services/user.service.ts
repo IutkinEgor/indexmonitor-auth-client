@@ -22,8 +22,14 @@ export class UserService {
     loadUserSettings(userId: string): Observable<fromSharedTypes.BaseResponseInterface<fromUserTypes.UserSettingsInterface>>{
         return this.http.get<fromSharedTypes.BaseResponseInterface<fromUserTypes.UserSettingsInterface>>(this.baseUrl + '/' + userId + '/settings', this.config);
     }
+    updateUserSettings(userId: string, userSettings: fromUserTypes.UserSettingsUpdateInterface): Observable<fromSharedTypes.BaseResponseInterface<Object>>{
+        return this.http.put<fromSharedTypes.BaseResponseInterface<Object>>(this.baseUrl + '/' + userId + '/settings',userSettings, this.config);
+    }
     loadUserProfile(userId: string): Observable<fromSharedTypes.BaseResponseInterface<fromUserTypes.UserProfileInterface>>{
         return this.http.get<fromSharedTypes.BaseResponseInterface<fromUserTypes.UserProfileInterface>>(this.baseUrl + '/' + userId + '/profile', this.config);
+    }
+    updateUserProfile(userId: string, userProfile: fromUserTypes.UserProfileUpdateInterface): Observable<fromSharedTypes.BaseResponseInterface<Object>>{
+        return this.http.put<fromSharedTypes.BaseResponseInterface<Object>>(this.baseUrl + '/' + userId + '/profile', userProfile, this.config);
     }
     loadUserRoles(userId: string): Observable<fromSharedTypes.BaseResponseInterface<fromUserTypes.UserRoleInterface[]>>{
         return this.http.get<fromSharedTypes.BaseResponseInterface<fromUserTypes.UserRoleInterface[]>>(this.baseUrl + '/' + userId + '/roles', this.config);

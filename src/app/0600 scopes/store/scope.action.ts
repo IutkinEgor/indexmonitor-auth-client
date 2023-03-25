@@ -52,7 +52,7 @@ export const scopePageLoadRequest = createAction(
 );
 export const scopePageLoadSuccess = createAction(
     ActionType.SCOPE_PAGE_LOAD_SUCCESS,
-    props<{ payload: fromSharedTypes.BaseResponseInterface<fromScopeTypes.ScopePageInterface[]> }>()
+    props<{ payload: fromSharedTypes.PageResponseInterface<fromScopeTypes.ScopePageInterface[]> }>()
 );
 export const scopePageLoadFailure = createAction(
     ActionType.SCOPE_PAGE_LOAD_FAILURE,
@@ -62,7 +62,7 @@ export const scopePageLoadFailure = createAction(
 //SCOPE SETTINGS LOAD
 export const scopeSettingsLoadRequest = createAction(
     ActionType.SCOPE_SETTINGS_LOAD_REQUEST,
-    props<{ id: string }>()
+    props<{ scopeId: string }>()
 );
 export const scopeSettingsLoadSuccess = createAction(
     ActionType.SCOPE_SETTINGS_LOAD_SUCCESS,
@@ -76,7 +76,7 @@ export const scopeSettingsLoadFailure = createAction(
 //SCOPE USAGE BY CLIENTS LOAD
 export const scopeUsageByClientsLoadRequest = createAction(
     ActionType.SCOPE_USAGE_BY_CLINETS_LOAD_REQUEST,
-    props<{ id: string }>()
+    props<{ scopeId: string }>()
 );
 export const scopeUsageByClientsLoadSuccess = createAction(
     ActionType.SCOPE_USAGE_BY_CLINETS_LOAD_SUCCESS,
@@ -90,7 +90,7 @@ export const scopeUsageByClientsLoadFailure = createAction(
 //SCOPE SETTINGS UPDATE
 export const scopeSettingsUpdateRequest = createAction(
     ActionType.SCOPE_SETTINGS_UPDATE_REQUEST,
-    props<{ id: string, payload: fromScopeTypes.ScopeUpdateInterface }>()
+    props<{ scopeId: string, payload: fromScopeTypes.ScopeUpdateInterface }>()
 );
 export const scopeSettingsUpdateSuccess = createAction(
     ActionType.SCOPE_SETTINGS_UPDATE_SUCCESS,
@@ -104,7 +104,7 @@ export const scopeSettingsUpdateFailure = createAction(
 //SCOPE DELETE
 export const scopeDeleteRequest = createAction(
     ActionType.SCOPE_DELETE_REQUEST,
-    props<{ id: string }>()
+    props<{ scopeId: string }>()
 );
 export const scopeDeleteSuccess = createAction(
     ActionType.SCOPE_DELETE_SUCCESS,

@@ -35,13 +35,13 @@ export class ScopeSettingsComponent implements OnInit{
 
   ngOnInit(): void {
     this.initializeForm();
-    this.store.dispatch(fromScopeAction.scopeSettingsLoadRequest({ id: this.route.parent?.snapshot.params['scopeId'] as string }))
+    this.store.dispatch(fromScopeAction.scopeSettingsLoadRequest({ scopeId: this.route.parent?.snapshot.params['scopeId'] as string }))
     this.isLoading$ = this.store.pipe(select(fromScopeSelector.isSettingsLoading));
     this.isLoadSuccess$ = this.store.pipe(select(fromScopeSelector.isSettingsLoadedSuccess));
     this.store.select(fromScopeSelector.getSettingsData).subscribe((data)=> { if(data)  this.initializeValue(data) });
     this.actionsSubject.pipe(ofType(fromScopeAction.scopeSettingsUpdateSuccess)).subscribe(() => {
       this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Scope updated.")}));
-      this.store.dispatch(fromScopeAction.scopeSettingsLoadRequest({ id: this.route.parent?.snapshot.params['scopeId'] as string }));
+      this.store.dispatch(fromScopeAction.scopeSettingsLoadRequest({ scopeId: this.route.parent?.snapshot.params['scopeId'] as string }));
     });
   }
 
@@ -76,7 +76,7 @@ export class ScopeSettingsComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         this.store.dispatch(fromScopeAction.scopeSettingsUpdateRequest({
-          id: this.route.parent?.snapshot.params['scopeId'] as string, 
+          scopeId: this.route.parent?.snapshot.params['scopeId'] as string, 
           payload: {
             name: this.form.value.name,
             description: this.form.value.description,

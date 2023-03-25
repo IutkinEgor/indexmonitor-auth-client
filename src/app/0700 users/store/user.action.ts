@@ -30,6 +30,10 @@ export enum ActionType {
     USER_PROFILE_LOAD_SUCCESS = '[0700 user] profile load success',
     USER_PROFILE_LOAD_FAILURE = '[0700 user] profile load failure',
 
+    USER_PROFILE_UPDATE_REQUEST = '[0700 user] profile update request',
+    USER_PROFILE_UPDATE_SUCCESS = '[0700 user] profile update success',
+    USER_PROFILE_UPDATE_FAILURE = '[0700 user] profile update failure',
+
     USER_ROLES_LOAD_REQUEST = '[0700 user] roles load request',
     USER_ROLES_LOAD_SUCCESS = '[0700 user] roles load success',
     USER_ROLES_LOAD_FAILURE = '[0700 user] roles load failure',
@@ -109,15 +113,15 @@ export const userSettingsUpdateFailure = createAction(
 );
 //USER DELETE
 export const userDeleteRequest = createAction(
-    ActionType.USER_SETTINGS_UPDATE_REQUEST,
+    ActionType.USER_DELETE_REQUEST,
     props<{ userId: string }>()
 );
 export const userDeleteSuccess = createAction(
-    ActionType.USER_SETTINGS_UPDATE_SUCCESS, 
+    ActionType.USER_DELETE_SUCCESS, 
     props<{ payload: fromSharedTypes.BaseResponseInterface<Object> }>()
 );
 export const userDeleteFailure = createAction(
-    ActionType.USER_SETTINGS_UPDATE_FAILURE,
+    ActionType.USER_DELETE_FAILURE,
     props<{ payload: fromSharedTypes.BaseResponseInterface<Object>}>()
 );
 //USER PROFILE LOAD
@@ -131,6 +135,19 @@ export const userProfileLoadSuccess = createAction(
 );
 export const userProfileLoadFailure = createAction(
     ActionType.USER_PROFILE_LOAD_FAILURE,
+    props<{ payload: fromSharedTypes.BaseResponseInterface<Object>}>()
+);
+//USER PROFILE UPDATE
+export const userProfileUpdateRequest = createAction(
+    ActionType.USER_PROFILE_UPDATE_REQUEST,
+    props<{ userId: string, payload: fromUserTypes.UserProfileUpdateInterface }>()
+);
+export const userProfileUpdateSuccess = createAction(
+    ActionType.USER_PROFILE_UPDATE_SUCCESS, 
+    props<{ payload: fromSharedTypes.BaseResponseInterface<Object> }>()
+);
+export const userProfileUpdateFailure = createAction(
+    ActionType.USER_PROFILE_UPDATE_FAILURE,
     props<{ payload: fromSharedTypes.BaseResponseInterface<Object>}>()
 );
 //USER ROLES LOAD

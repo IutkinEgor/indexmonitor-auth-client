@@ -52,7 +52,6 @@ export class ClientCardScopeAddDialogComponent {
   ];
 
   clientScopes: fromClientTypes.ClientScopeInterface[];
-  registeredScopes: fromScopeTypes.ScopePageInterface[];
   avalibleScopes: fromClientTypes.ClientScopeInterface[];
 
   ngOnInit(): void {
@@ -77,11 +76,7 @@ export class ClientCardScopeAddDialogComponent {
 
     this.store.pipe(select(fromScopeSelector.getTableData)).subscribe(data => {
       if(!data) return;
-      this.avalibleScopes = data.filter((item) => {
-        return !this.clientScopes.some((other) => {
-          return item.id === other.id;
-        });
-      });
+      this.avalibleScopes = data.filter((page) => !this.clientScopes.some((scope) => scope.scopeId === page.scopeId)).map( scope =>  { return {scopeId: scope.scopeId, scopeName: scope.scopeName} });
       this.initializeTable(this.avalibleScopes);
     });
 

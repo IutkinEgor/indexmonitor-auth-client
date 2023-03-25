@@ -21,14 +21,18 @@ export const getTableData =  createSelector(
 export const getTableMessage =  createSelector(
     scopeSelector, fromScopeReducer.getTableMessage
 )
-//Single table record
-// export const selectPageElementById = (scopeId: string) => createSelector(
-//     (state: AppState) => state.elements,
-//     (elements) => elements.filter((element) => element.category === category)
-//   );
+export const getTableTotalCount =  createSelector(
+    scopeSelector, fromScopeReducer.getTableTotalCount
+)
+export const getTableCurrentPage =  createSelector(
+    scopeSelector, fromScopeReducer.getTableCurrentPage
+)
+export const getTableCurrentSize =  createSelector(
+    scopeSelector, fromScopeReducer.getTableCurrentSize
+)
 
 export const getPageElementById = (scopeId: string) => createSelector(
-    scopeSelector, (data) => data.scopeTable.data?.find((record) => record.id == scopeId));
+    scopeSelector, (data) => data.scopeTable.data?.find((record) => record.scopeId == scopeId));
 
 //Settings
 export const isSettingsLoading =  createSelector(

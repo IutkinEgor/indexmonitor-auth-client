@@ -1,4 +1,4 @@
 export interface ClientScopeInterface {
-    id: string;
-    name: string;
+    scopeId: string;
+    scopeName: string;
 }

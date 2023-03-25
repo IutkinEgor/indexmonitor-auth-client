@@ -10,7 +10,7 @@ export interface ScopeSettingsState extends fromSharedTypes.BaseResponseInterfac
     isLoading: boolean;
 }
 
-export interface ScopeTableState extends fromSharedTypes.BaseResponseInterface<fromScopeTypes.ScopePageInterface[]>{
+export interface ScopeTableState extends fromSharedTypes.PageResponseInterface<fromScopeTypes.ScopePageInterface[]>{
     isLoading: boolean;
 }
 
@@ -37,7 +37,10 @@ const initialState: ScopeState = {
         isSuccess: false,
         createdAt: null,
         message: null,
-        data: []
+        data: [],
+        totalCount: null,
+        currentPage: null,
+        currentSize: null
     },
     scopeUsageByClient: {
         isLoading: false,
@@ -84,7 +87,10 @@ const ScopeReducer = createReducer(
             isSuccess: true,
             createdAt: payload.createdAt,
             message: null,
-            data: payload.data
+            data: payload.data,
+            totalCount: payload.totalCount,
+            currentPage: payload.currentPage,
+            currentSize: payload.currentSize
         }
         })
     ),
@@ -96,7 +102,10 @@ const ScopeReducer = createReducer(
             isSuccess: false,
             createdAt: payload == null || payload.createdAt == null ? null : payload.createdAt,
             message: payload == null || payload.message == null ? null : payload.message,
-            data: null
+            data: null,
+            totalCount: null,
+            currentPage: null,
+            currentSize: null
         }
         })
     ),
@@ -175,7 +184,7 @@ const ScopeReducer = createReducer(
         })
     ),
     //SCOPE SETTINGS
-    on(fromScopeAction.scopeSettingsUpdateRequest, (state, { id, payload }): ScopeState => ({
+    on(fromScopeAction.scopeSettingsUpdateRequest, (state, { scopeId, payload }): ScopeState => ({
         ...state,
         })
     ),
@@ -199,6 +208,9 @@ export const isTableLoadedSuccess = (state: ScopeState) => state.scopeTable.isSu
 export const isTableLoadedFailure = (state: ScopeState) => !state.scopeTable.isLoading  && !state.scopeTable.isSuccess;
 export const getTableData = (state: ScopeState) => state.scopeTable.data;
 export const getTableMessage = (state: ScopeState) => state.scopeTable.message;
+export const getTableTotalCount = (state: ScopeState) => state.scopeTable.totalCount;
+export const getTableCurrentPage = (state: ScopeState) => state.scopeTable.currentPage;
+export const getTableCurrentSize = (state: ScopeState) => state.scopeTable.currentSize;
 
 export const isSettingsLoading = (state: ScopeState) => state.scopeSettings.isLoading;
 export const isSettingsLoadedSuccess = (state: ScopeState) => state.scopeSettings.isSuccess;

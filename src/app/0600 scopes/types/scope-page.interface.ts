@@ -1,6 +1,6 @@
 export interface ScopePageInterface {
-    id: string;
-    name: string;
+    scopeId: string;
+    scopeName: string;
     createdAt: number;
     createdBy: string;
 }

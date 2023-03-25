@@ -4,12 +4,15 @@ import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormControlStatus, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/0100 shared/components/confirm-dialog/confirm-dialog.component';
 
 import * as fromSharedTypes from '../../../0100 shared/types/_index';
 import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 import * as fromUserTypes from '../../types/_index';
 import * as fromUserAction from '../../store/user.action';
 import * as fromUserSelector from '../../store/user.selector';
+
 
 @Component({
   selector: 'app-user-card-settings',
@@ -24,7 +27,9 @@ export class UserCardSettingsComponent {
   form: FormGroup;
   formValidation: FormControlStatus;
 
-  constructor(private store: Store, private actionsSubject: ActionsSubject, private route: ActivatedRoute, private formBuilder: FormBuilder){}
+  createdAt: number;
+
+  constructor(private store: Store, private dialog: MatDialog, private actionsSubject: ActionsSubject, private route: ActivatedRoute, private formBuilder: FormBuilder){}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -50,6 +55,7 @@ export class UserCardSettingsComponent {
   }
 
   initializeValue(data: fromUserTypes.UserSettingsInterface): void {
+        this.createdAt=data.createdAt;
         this.form.get("userName")?.setValue(data.userName);
         this.form.get("isEnabled")?.setValue(data.isEnabled);
         this.form.get("isUserNonLocked")?.setValue(data.isUserNonLocked);  
@@ -58,15 +64,26 @@ export class UserCardSettingsComponent {
   }
 
   update(){
-    this.store.dispatch(fromUserAction.userSettingsUpdateRequest({
-        userId: this.route.parent?.snapshot.params['userId'] as string, 
-        payload: {
-          userName: this.form.value.userName,
-          isEnabled: this.form.value.isEnabled,
-          isUserNonLocked: this.form.value.isUserNonLocked,
-          isCredentialsNonExpired: this.form.value.isCredentialsNonExpired,
-          isUserNonExpired: this.form.value.isUserNonExpired
-        }
-    }))
+    let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        header: "Update user",
+        message: `Update user settings?`,
+        level: fromSharedTypes.ConfirmDialogLevelEnum.accent
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.store.dispatch(fromUserAction.userSettingsUpdateRequest({
+          userId: this.route.parent?.snapshot.params['userId'] as string, 
+          payload: {
+            userName: this.form.value.userName,
+            isEnabled: this.form.value.isEnabled,
+            isUserNonLocked: this.form.value.isUserNonLocked,
+            isCredentialsNonExpired: this.form.value.isCredentialsNonExpired,
+            isUserNonExpired: this.form.value.isUserNonExpired
+          }
+      }))
+      }});
   }
 }

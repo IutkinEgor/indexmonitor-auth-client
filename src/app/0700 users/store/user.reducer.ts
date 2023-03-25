@@ -226,6 +226,18 @@ const UserReducer = createReducer(
         }
         })
     ),
+    on(fromUserAction.userProfileUpdateRequest, (state, {userId, payload}): UserState => ({
+        ...state,
+        })
+    ),
+    on(fromUserAction.userProfileUpdateSuccess, (state, {payload}): UserState => ({
+        ...state,
+        })
+    ),
+    on(fromUserAction.userProfileUpdateFailure, (state, {payload}): UserState => ({
+        ...state,
+        })
+    ),
     //USER ROLES
     on(fromUserAction.userRolesLoadRequest, (state, {userId}): UserState => ({
         ...state,

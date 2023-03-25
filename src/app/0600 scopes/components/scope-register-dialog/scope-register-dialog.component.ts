@@ -27,7 +27,6 @@ export class ScopeRegisterDialogComponent {
     this.initializeValue();
     this.actionsSubject.pipe(ofType(fromScopeAction.scopeRegisterSuccess)).subscribe(() => {
       this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Scope registered") }));
-      this.store.dispatch(fromScopeAction.scopePageLoadRequest({ page: 0, size: 20 }));
       this.dialogRef.close();
   });
   }

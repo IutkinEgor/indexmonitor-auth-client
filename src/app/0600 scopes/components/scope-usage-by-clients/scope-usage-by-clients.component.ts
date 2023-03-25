@@ -48,7 +48,7 @@ export class ScopeUsageByClientsComponent {
   ){}
 
   ngOnInit(): void {
-    this.store.dispatch(fromScopeAction.scopeUsageByClientsLoadRequest({id:  this.route.snapshot.paramMap.get('id') as string}));
+    this.store.dispatch(fromScopeAction.scopeUsageByClientsLoadRequest({scopeId:  this.route.snapshot.paramMap.get('id') as string}));
     this.isLoading$ = this.store.pipe(select(fromScopeSelector.isTableLoading));
     this.isSuccess$ = this.store.pipe(select(fromScopeSelector.isTableLoadedSuccess));
     this.store.pipe(select(fromScopeSelector.getUsageByClientData)).subscribe((data) =>  { if(data) this.initializeTable(data) } );

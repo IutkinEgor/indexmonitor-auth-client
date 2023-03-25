@@ -31,12 +31,14 @@ export class ScopeTableComponent {
   isSuccess$: Observable<boolean>;
 
   pageSize: number = 10;
+  pageIndex: number = 0;
+  totalCount: number = 0;
   dataSource: MatTableDataSource<fromScopeType.ScopePageInterface>;
   noData: fromScopeType.ScopePageInterface[] = [<fromScopeType.ScopePageInterface>{}];
   modelEdit: fromScopeType.ScopePageInterface;
   tableColumns: string[] = [
-    'id',
-    'name',
+    'scopeId',
+    'scopeName',
     'createdAt',
     'details',
     'delete',
@@ -52,25 +54,27 @@ export class ScopeTableComponent {
     this.store.dispatch(fromScopeAction.scopePageLoadRequest({page: 0, size: 20}));
     this.isLoading$ = this.store.pipe(select(fromScopeSelector.isTableLoading));
     this.isSuccess$ = this.store.pipe(select(fromScopeSelector.isTableLoadedSuccess));
-    this.store.pipe(select(fromScopeSelector.getTableData)).subscribe((data) => this.initializeTable(data));
-    
+    this.store.pipe(select(fromScopeSelector.getTableTotalCount)).subscribe((data) =>  { if(data) this.totalCount = data});
+    this.store.pipe(select(fromScopeSelector.getTableData)).subscribe((data) => { if(data) this.initializeTable(data) });
+    this.actionsSubject.pipe(ofType(fromScopeAction.scopeRegisterSuccess)).subscribe(() => {
+      this.store.dispatch(fromScopeAction.scopePageLoadRequest({page: this.pageIndex, size: this.pageSize}));
+    });
     this.actionsSubject.pipe(ofType(fromScopeAction.scopeDeleteSuccess)).subscribe(() => {
       this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Scopes was deleted") }));
-      this.store.dispatch(fromScopeAction.scopePageLoadRequest({ page: 0, size: 20 }));
+      this.store.dispatch(fromScopeAction.scopePageLoadRequest({page: this.pageIndex, size: this.pageSize}));
     });
   }
 
-  initializeTable(data: fromScopeType.ScopePageInterface[] | null){
-    if (data != null) {
-      this.dataSource = new MatTableDataSource(
-        data.length ? data : this.noData
-      );
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    }
+  initializeTable(data: fromScopeType.ScopePageInterface[]){
+    this.dataSource = new MatTableDataSource(
+      data.length ? data : this.noData
+    );
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
   loadPage(event: PageEvent){
     this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
     this.store.dispatch(fromScopeAction.scopePageLoadRequest({page: event.pageIndex, size: event.pageSize}))
   }
   applyFilter(event: Event) {
@@ -82,10 +86,10 @@ export class ScopeTableComponent {
     let dialogRef = this.dialog.open(ScopeRegisterDialogComponent, { minWidth: '300px' });  
   }
 
-  delete(id: string, scopeName: string){
+  delete(scopeId: string, scopeName: string){
     var data: fromSharedTypes.ConfirmDialogInterface = {
       header: "Delete scope",
-      message: `Are you sure you want to delete the scope "${scopeName}" with ID "${id}"?`,
+      message: `Are you sure you want to delete the scope "${scopeName}" with ID "${scopeId}"?`,
       level: fromSharedTypes.ConfirmDialogLevelEnum.warn
     }
 
@@ -95,7 +99,7 @@ export class ScopeTableComponent {
     
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.store.dispatch(fromScopeAction.scopeDeleteRequest({id}));
+        this.store.dispatch(fromScopeAction.scopeDeleteRequest({scopeId}));
       }
     })
   }

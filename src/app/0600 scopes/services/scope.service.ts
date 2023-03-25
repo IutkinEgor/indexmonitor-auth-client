@@ -15,9 +15,9 @@ export class ScopeService {
 
     constructor(private http: HttpClient) { }
     
-    loadScopePage(page: number, size: number): Observable<fromSharedTypes.BaseResponseInterface<fromScopeTypes.ScopePageInterface[]>>{
+    loadScopePage(page: number, size: number): Observable<fromSharedTypes.PageResponseInterface<fromScopeTypes.ScopePageInterface[]>>{
         let params = new HttpParams().set('page', page).set('size', size);
-        return this.http.get<fromSharedTypes.BaseResponseInterface<fromScopeTypes.ScopePageInterface[]>>(this.baseUrl, {params: params, headers: this.defaultHeaders});
+        return this.http.get<fromSharedTypes.PageResponseInterface<fromScopeTypes.ScopePageInterface[]>>(this.baseUrl, {params: params, headers: this.defaultHeaders});
     }
     loadScopeSettings(id: string): Observable<fromSharedTypes.BaseResponseInterface<fromScopeTypes.ScopeSettingsInterface>>{
         return this.http.get<fromSharedTypes.BaseResponseInterface<fromScopeTypes.ScopeSettingsInterface>>(this.baseUrl + '/' + id, this.config);
