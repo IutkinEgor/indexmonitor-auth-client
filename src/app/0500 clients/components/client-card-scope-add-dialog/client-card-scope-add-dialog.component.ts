@@ -46,8 +46,8 @@ export class ClientCardScopeAddDialogComponent {
   noData: fromClientTypes.ClientScopeInterface[] = [<fromClientTypes.ClientScopeInterface>{}];
   modelEdit: fromClientTypes.ClientScopeInterface;
   tableColumns: string[] = [
-    'id',
-    'name',
+    'scopeId',
+    'scopeName',
     'add'
   ];
 

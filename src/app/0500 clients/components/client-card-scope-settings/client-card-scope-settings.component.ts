@@ -36,8 +36,8 @@ export class ClientCardScopeSettingsComponent {
   noData: fromClientTypes.ClientScopeInterface[] = [<fromClientTypes.ClientScopeInterface>{}];
   modelEdit: fromClientTypes.ClientScopeInterface;
   tableColumns: string[] = [
-    'id',
-    'name',
+    'scopeId',
+    'scopeName',
     'details',
     'remove'
   ];
