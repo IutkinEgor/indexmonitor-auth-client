@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class SidenavComponent {
   constructor(){}
+
+  register(){
+    window.location.href = `${localStorage.getItem("issuer")}/register?redirectUrl=${location.origin}`;
+  }
 }
