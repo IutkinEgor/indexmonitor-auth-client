@@ -5,9 +5,7 @@
       <a mat-button routerLink="home" *ngIf="(isAuthenticated$ | async)">Home</a>
       <a mat-button routerLink="welcome" *ngIf="(isAuthenticated$ | async) === false">Welcome</a>
       <a mat-button routerLink="faq">FAQ</a>
-      <a mat-button (click)="register()">Register</a>
       <div class="flex-spacer"></div>
-      <a mat-button (click)="testSnackbarInfo()">I</a>
       <a mat-button  *ngIf="(isAuthenticated$ | async) === false" (click)="connect()">Connect</a>
       <button mat-button [matMenuTriggerFor]="menu" *ngIf="(isAuthenticated$ | async)">User <mat-icon>keyboard_arrow_down</mat-icon></button>
       <mat-menu #menu="matMenu" xPosition="before" style="min-width: 200px;" [class.custom-width]="true">

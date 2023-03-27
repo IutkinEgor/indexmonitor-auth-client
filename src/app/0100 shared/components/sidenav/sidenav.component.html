@@ -1,13 +1,16 @@
 <div class="conteiner h-100 overflow-hidden">
     <mat-card class="shadow h-100">
-        <mat-nav-list  class="h-100">
-            <a mat-list-item [routerLink]="'/clients'" [routerLinkActive]="['is-active']"> Clients </a>
-            <a mat-list-item [routerLink]="'/scopes'" [routerLinkActive]="['is-active']"> Scopes </a>
+        <mat-nav-list class="h-100 mat-nav-list-bottom">
+            <a mat-list-item [routerLink]="'/clients'" [routerLinkActive]="['is-active']">Clients</a>
+            <a mat-list-item [routerLink]="'/scopes'" [routerLinkActive]="['is-active']">Scopes</a>
             <mat-divider></mat-divider>
-            <a mat-list-item [routerLink]="'/users'" [routerLinkActive]="['is-active']"> Users </a>
+            <a mat-list-item [routerLink]="'/users'" [routerLinkActive]="['is-active']">Users</a>
             <mat-divider></mat-divider>
-            <a mat-list-item [routerLink]="'/roles'" [routerLinkActive]="['is-active']"> Roles</a>
-            <a mat-list-item [routerLink]="'/authorities'" [routerLinkActive]="['is-active']"> Authorities</a>
-          </mat-nav-list>
+            <a mat-list-item [routerLink]="'/roles'" [routerLinkActive]="['is-active']">Roles</a>
+            <a mat-list-item [routerLink]="'/authorities'" [routerLinkActive]="['is-active']">Authorities</a>
+        </mat-nav-list>
+        <mat-nav-list>
+            <a mat-list-item (click)="register()">Init register flow</a>
+        </mat-nav-list>
     </mat-card>
 </div>
