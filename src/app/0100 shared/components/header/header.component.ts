@@ -58,7 +58,5 @@ export class HeaderComponent {
     this.store.dispatch(fromSharedAction.notificationError(fromSharedTypes.NotificationData.buildPayload('Error'))); 
   }
 
-  register(){
-    window.location.href = `${localStorage.getItem("issuer")}/register?redirectUrl=${location.origin}`;
-  }
+ 
 }

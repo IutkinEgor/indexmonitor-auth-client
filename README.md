@@ -1,27 +1,62 @@
-# AngularTempAmNgrx
+# Indexmonitor Authorization Client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.3.
+The Indexmonitor Authorization Client is built on top of Angular 15 and provides a clean user interface for the Indexmonitor Authorization Server. It utilizes Angular Material library and Bootstrap 5.0 for the grid system, as flex-layout is not supported in Angular 15. It also uses ngrx for state management.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### User Interface
 
-## Code scaffolding
+The Indexmonitor Authorization Client provides the following UI features:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Clients and scopes management
+* Users, roles and authorities management
 
-## Build
+### State Management
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The application utilizes ngrx for state management, providing the following features:
 
-## Running unit tests
+* Each module has it own store for user and application data
+* Strict type checking for state data
+* Actions and reducers for managing state changes
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Issues
 
-## Running end-to-end tests
+The project is still in development mode and has a number of unsolved problems
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Architecture
 
-## Further help
+### Standart module layout
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- src
+  - module-name
+    - components   
+        - comp-1
+        - comp-2
+        - ...
+    - services
+    - store
+    - types
+    - component.module.ts
+
+# Dependencies
+
+The Indexmonitor Authorization Client relies on the following dependencies:
+
+* Angular 15
+* Angular Material library
+* Bootstrap 5.0
+* ngrx
+
+# Building from Source
+
+To build the application from source, follow these steps:
+
+1. Clone the repository.
+2. Install dependencies using the following command:
+  ```bash
+  npm install
+  ```
+3. Run the application using the following command:
+  ```bash
+  ng serve
+  ```
