@@ -7,6 +7,7 @@ import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ClientRegisterDialogComponent } from '../client-register-dialog/client-register-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ofType } from '@ngrx/effects';
+import { ConfirmDialogComponent } from 'src/app/0100 shared/components/confirm-dialog/confirm-dialog.component';
 
 import * as fromSharedTypes from '../../../0100 shared/types/_index';
 import * as fromSharedAction from '../../../0100 shared/store/shared.action';
@@ -14,7 +15,8 @@ import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 import * as fromClientTypes from '../../../0500 clients/types/_index';
 import * as fromClientTableAction from '../../../0500 clients/store/client-table/client-table.action'
 import * as fromClientTableSelector from '../../../0500 clients/store/client-table/client-table.selector';
-import { ConfirmDialogComponent } from 'src/app/0100 shared/components/confirm-dialog/confirm-dialog.component';
+import * as fromClientRegisterAction from '../../../0500 clients/store/client-register/client-register.action';
+
 
 @Component({
   selector: 'app-client-table',
@@ -28,8 +30,7 @@ export class ClientTableComponent implements OnInit  {
 
   isLoading$: Observable<boolean>;
   isSuccess$: Observable<boolean>;
-  isFailure$: Observable<boolean>;
-  table: Object | null;
+  //table: Object | null;
 
   //Tabel
   pageSize: number = 10;
@@ -55,14 +56,15 @@ export class ClientTableComponent implements OnInit  {
     this.store.dispatch(fromClientTableAction.clientPageLoadRequest({page: 0, size: 20}));
     this.isLoading$ = this.store.pipe(select(fromClientTableSelector.isLoading));
     this.isSuccess$ = this.store.pipe(select(fromClientTableSelector.isSuccess));
-    this.isFailure$ = this.store.pipe(select(fromClientTableSelector.isFailure));
-    this.store
-      .pipe(select(fromClientTableSelector.getData))
-      .subscribe((data) => this.initializeTable(data));
-      this.actionsSubject.pipe(ofType(fromClientTableAction.clientDeleteSuccess)).subscribe(() => {
-        this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Client was deleted") }));
-        this.store.dispatch(fromClientTableAction.clientPageLoadRequest({page: 0, size: 20}));
-      });
+    this.store.pipe(select(fromClientTableSelector.getData)).subscribe((data) => this.initializeTable(data));
+    this.actionsSubject.pipe(ofType(fromClientTableAction.clientDeleteSuccess)).subscribe(() => {
+      this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Client was deleted") }));
+      this.store.dispatch(fromClientTableAction.clientPageLoadRequest({page: 0, size: 20}));
+    });
+    this.actionsSubject.pipe(ofType(fromClientRegisterAction.clientRegisterSuccess)).subscribe(() => {
+      this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Client registered") }));
+      this.store.dispatch(fromClientTableAction.clientPageLoadRequest({page: 0, size: 20}));
+    });
   }
 
 

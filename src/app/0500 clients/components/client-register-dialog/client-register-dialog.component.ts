@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormControlStatus, FormGroup, Validators } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
+import { ActionsSubject, select, Store } from '@ngrx/store';
+import { ofType } from '@ngrx/effects';
+import { MatDialogRef } from '@angular/material/dialog';
 
+import * as fromSharedTypes from '../../../0100 shared/types/_index';
+import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 import * as fromClientTypes from '../../../0500 clients/types/_index';
 import * as fromClientRegisterAction from '../../../0500 clients/store/client-register/client-register.action'
 import * as fromClientRegisterSelector from '../../../0500 clients/store/client-register/client-register.selector';
 import * as fromClientCardAction from '../../../0500 clients/store/client-card/client-card.action'
 import * as fromClientCardSelector from '../../../0500 clients/store/client-card/client-card.selector';
-
 
 
 @Component({
@@ -17,7 +20,6 @@ import * as fromClientCardSelector from '../../../0500 clients/store/client-card
 })
 export class ClientRegisterDialogComponent {
 
-  
  //Form
  form: FormGroup;
  formValidation: FormControlStatus;
@@ -27,16 +29,17 @@ export class ClientRegisterDialogComponent {
  redirectUrisSlots: number = 0;
  authMethodBasic = fromClientTypes.AuthMethodEnum.CLIENT_SECRET_BASIC;
  authMethodPost = fromClientTypes.AuthMethodEnum.CLIENT_SECRET_POST;
- constructor(private store: Store, private formBuilder: FormBuilder){}
+ constructor(private store: Store, private formBuilder: FormBuilder, private actionsSubject: ActionsSubject,private dialogRef: MatDialogRef<ClientRegisterDialogComponent>){}
 
  ngOnInit(): void {
     this.initializeForm();
     this.initializeValue();
+    this.actionsSubject.pipe(ofType(fromClientRegisterAction.clientRegisterSuccess)).subscribe(() => {
+      this.dialogRef.close();
+    });
  }
  
  initializeForm(): void {
-   //this.authMethodEnum = Object.keys(AuthMethodEnum);
-
    this.form = this.formBuilder.group({
      clientId: ['', Validators.required],
      name: ['', Validators.required],
