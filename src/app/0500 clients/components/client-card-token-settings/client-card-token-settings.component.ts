@@ -10,8 +10,8 @@ import { ConfirmDialogComponent } from 'src/app/0100 shared/components/confirm-d
 import * as fromSharedTypes from '../../../0100 shared/types/_index';
 import * as fromClientTypes from '../../../0500 clients/types/_index';
 import * as fromSharedAction from '../../../0100 shared/store/shared.action';
-import * as fromClientCardAction from '../../../0500 clients/store/client-card/client-card.action'
-import * as fromClientCardSelector from '../../../0500 clients/store/client-card/client-card.selector';
+import * as fromClientAction from '../../store/client.action'
+import * as fromClientSelector from '../../../0500 clients/store/client.selector';
 
 
 @Component({
@@ -31,15 +31,15 @@ export class ClientCardTokenSettingsComponent {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.store.dispatch(fromClientCardAction.clientTokenSettingsLoadRequest({ id: this.route.parent?.snapshot.paramMap.get('clientId') as string }))
-    this.isLoading$ = this.store.pipe(select(fromClientCardSelector.isTokenSettingsLoading));
-    this.isSuccess$ = this.store.pipe(select(fromClientCardSelector.isTokenSettingsLoadedSuccess));
-    this.store.pipe(select(fromClientCardSelector.getTokenSettingsData))
+    this.store.dispatch(fromClientAction.clientTokenSettingsLoadRequest({ id: this.route.parent?.snapshot.paramMap.get('clientId') as string }))
+    this.isLoading$ = this.store.pipe(select(fromClientSelector.isTokenSettingsLoading));
+    this.isSuccess$ = this.store.pipe(select(fromClientSelector.isTokenSettingsLoadedSuccess));
+    this.store.pipe(select(fromClientSelector.getTokenSettingsData))
       .subscribe((data) =>  { if(data) { this.initializeValue(data) } });
 
-    this.actionsSubject.pipe(ofType(fromClientCardAction.clientTokenSettingsUpdateSuccess)).subscribe(() => {
+    this.actionsSubject.pipe(ofType(fromClientAction.clientTokenSettingsUpdateSuccess)).subscribe(() => {
         this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Client token updated") }));
-        this.store.dispatch(fromClientCardAction.clientTokenSettingsLoadRequest({ id: this.route.parent?.snapshot.paramMap.get('clientId') as string }));
+        this.store.dispatch(fromClientAction.clientTokenSettingsLoadRequest({ id: this.route.parent?.snapshot.paramMap.get('clientId') as string }));
       });
   }
   
@@ -72,7 +72,7 @@ export class ClientCardTokenSettingsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.store.dispatch(fromClientCardAction.clientTokenSettingsUpdateRequest({
+        this.store.dispatch(fromClientAction.clientTokenSettingsUpdateRequest({
           id: this.route.parent?.snapshot.params['clientId'] as string, 
           payload: {
           authorizationCodeTimeToLive: this.form.value.authorizationCodeTimeToLive,

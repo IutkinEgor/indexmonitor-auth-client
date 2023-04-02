@@ -1,14 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 
-import * as fromSharedTypes from '../../../0100 shared/types/_index';
-import * as fromClientTypes from '../../types/_index';
+import * as fromSharedTypes from '../../0100 shared/types/_index';
+import * as fromClientTypes from '../types/_index';
 
 
 export enum ActionType {
 
-    CLIENT_TABLE_LOAD_REQUEST = '[0500 client] table load request',
-    CLIENT_TABLE_LOAD_SUCCESS = '[0500 client] table load success',
-    CLIENT_TABLE_LOAD_FAILURE = '[0500 client] table load failure',
+    CLIENT_PAGE_LOAD_REQUEST = '[0500 client] page load request',
+    CLIENT_PAGE_LOAD_SUCCESS = '[0500 client] page load success',
+    CLIENT_PAGE_LOAD_FAILURE = '[0500 client] page load failure',
 
     CLIENT_SETTINGS_LOAD_REQUEST = '[0500 client] settings load request',
     CLIENT_SETTINGS_LOAD_SUCCESS = '[0500 client] settings load success',
@@ -37,17 +37,26 @@ export enum ActionType {
     CLIENT_SCOPES_REMOVE_REQUEST = '[0500 client] scopes remove request',
     CLIENT_SCOPES_REMOVE_SUCCESS = '[0500 client] scopes remove success',
     CLIENT_SCOPES_REMOVE_FAILURE = '[0500 client] scopes remove failure',
+
+    CLIENT_REGISTER_REQUEST = '[0500 client] register request',
+    CLIENT_REGISTER_SUCCESS = '[0500 client] register success',
+    CLIENT_REGISTER_FAILURE = '[0500 client] register failure',
+
+    CLIENT_DELETE_REQUEST = '[0500 client] delete request',
+    CLIENT_DELETE_SUCCESS = '[0500 client] delete success',
+    CLIENT_DELETE_FAILURE = '[0500 client] delete failure',
 }
 
-export const clientTableLoadRequest = createAction(
-    ActionType.CLIENT_TABLE_LOAD_REQUEST
+export const clientPageLoadRequest = createAction(
+    ActionType.CLIENT_PAGE_LOAD_REQUEST,
+    props<{ page: number, size: number }>()
 );
-export const clientTableLoadSuccess = createAction(
-    ActionType.CLIENT_TABLE_LOAD_SUCCESS, 
-    props<{ payload: fromSharedTypes.BaseResponseInterface<fromClientTypes.ClientTableInterface[]> }>()
+export const clientPageLoadSuccess = createAction(
+    ActionType.CLIENT_PAGE_LOAD_SUCCESS, 
+    props<{ payload: fromSharedTypes.PageResponseInterface<fromClientTypes.ClientTableInterface[]> }>()
 );
-export const clientTableLoadFailure = createAction(
-    ActionType.CLIENT_TABLE_LOAD_FAILURE,
+export const clientPageLoadFailure = createAction(
+    ActionType.CLIENT_PAGE_LOAD_FAILURE,
     props<{ payload: fromSharedTypes.BaseResponseInterface<Object>}>()
 );
 
@@ -141,5 +150,28 @@ export const clientScopesRemoveFailure = createAction(
     ActionType.CLIENT_SCOPES_REMOVE_FAILURE,
     props<{ payload: fromSharedTypes.BaseResponseInterface<Object>}>()
 );
-
+export const clientRegisterRequest = createAction(
+    ActionType.CLIENT_REGISTER_REQUEST, 
+    props<{ payload: fromClientTypes.ClientRegisterInterface }>()
+);
+export const clientRegisterSuccess = createAction(
+    ActionType.CLIENT_REGISTER_SUCCESS, 
+    props<{ payload: fromSharedTypes.BaseResponseInterface<Object | null> }>()
+);
+export const clientRegisterFailure = createAction(
+    ActionType.CLIENT_REGISTER_FAILURE,
+    props<{ payload: fromSharedTypes.BaseResponseInterface<Object | null>}>()
+);
+export const clientDeleteRequest = createAction(
+    ActionType.CLIENT_DELETE_REQUEST,
+    props<{ id: string }>()
+);
+export const clientDeleteSuccess = createAction(
+    ActionType.CLIENT_DELETE_SUCCESS, 
+    props<{ payload: fromSharedTypes.BaseResponseInterface<Object> }>()
+);
+export const clientDeleteFailure = createAction(
+    ActionType.CLIENT_DELETE_FAILURE,
+    props<{ payload: fromSharedTypes.BaseResponseInterface<Object>}>()
+);
 

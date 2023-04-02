@@ -1,15 +1,10 @@
-import { Injectable } from "@angular/core";
-import { of } from "rxjs";
-import { catchError, map, switchMap, tap } from "rxjs/operators";
+import { Injectable } from "@angular/core";;
+import { tap } from "rxjs/operators";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { SharedService } from "../services/shared.service";
-
-import * as fromSharedTypes from '../types/_index';
-import * as fromSharedAction from './shared.action';
-import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
-import { NotificationSnackbarComponent } from "../components/notification-snackbar/notification-snackbar.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { NotificationSnackbarService } from "../services/notification-snackbar.service";
 
+import * as fromSharedAction from './shared.action';
 
 @Injectable()
 export class SharedEffects {
@@ -17,8 +12,7 @@ export class SharedEffects {
     constructor(
         private actions$: Actions,
         private _snackBar: MatSnackBar, 
-        private notificationSnackbarService: NotificationSnackbarService, 
-        private sharedService: SharedService){}
+        private notificationSnackbarService: NotificationSnackbarService){}
 
     notificationInfo$ = createEffect(() => this.actions$.pipe(
         ofType(fromSharedAction.notificationInfo),

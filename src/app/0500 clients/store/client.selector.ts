@@ -1,12 +1,40 @@
 import { createSelector } from "@ngrx/store";
-import * as fromClientReducer from '../client.reducer'
-import * as fromClientCardReducer from "./client-card.reducer";
+import * as fromClientReducer from './client.reducer'
+import * as fromClientCardReducer from "./client.reducer";
 
 
 export const clientSelector =  createSelector(
     fromClientReducer.clientFeatureSelector,
-    (state: fromClientReducer.ClientState) => state.clientCard
+    (state: fromClientReducer.ClientState) => state
 )
+
+// Client Page
+export const isClientPageLoading =  createSelector(
+    clientSelector, fromClientCardReducer.isClientPageLoading
+)
+export const isClientPageSuccess =  createSelector(
+    clientSelector, fromClientCardReducer.isClientPageSuccess
+)
+export const isClientPageFailure =  createSelector(
+    clientSelector, fromClientCardReducer.isClientPageFailure
+)
+export const getClientPageData =  createSelector(
+    clientSelector, fromClientCardReducer.getClientPageData
+)
+export const getClientPageMessage =  createSelector(
+    clientSelector, fromClientCardReducer.getClientPageMessage
+)
+export const getClientPageTotalCount =  createSelector(
+    clientSelector, fromClientCardReducer.getClientPageTotalCount
+)
+export const getClientPageCurrentPage =  createSelector(
+    clientSelector, fromClientCardReducer.getClientPageCurrentPage
+)
+export const getClientPageCurrentSize =  createSelector(
+    clientSelector, fromClientCardReducer.getClientPageCurrentSize
+)
+export const getClientPageElementById = (id: string) => createSelector(
+    clientSelector, (data) => data.clientTable.data?.find((record) => record.id == id));
 
 //Client Settings
 export const isClientSettingsLoading =  createSelector(

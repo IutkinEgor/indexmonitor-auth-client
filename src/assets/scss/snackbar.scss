@@ -1,27 +1,23 @@
-:root {
-    --info-color: #63c0df;
-    --success-color: #009944;
-    --error-color: #f0541e;
-}
+@import "./variables";
 
 .info-snackbar {
     color: white;
-    --mdc-snackbar-container-color: var(--info-color); 
+    --mdc-snackbar-container-color: var(--app-info-color); 
     .mat-simple-snackbar-action {
       color: white;
     }
 }
 .success-snackbar {
     color: white;
-    --mdc-snackbar-container-color: var(--success-color); 
+    --mdc-snackbar-container-color: var(--app-success-color); 
     .mat-simple-snackbar-action {
       color: white;
     }
 }
 
 .error-snackbar {
-    color: rgb(236, 178, 178);
-    --mdc-snackbar-container-color: var(--error-color); 
+    color: white;
+    --mdc-snackbar-container-color: var(--app-error-color); 
     .mat-simple-snackbar-action {
       color: white;
     }

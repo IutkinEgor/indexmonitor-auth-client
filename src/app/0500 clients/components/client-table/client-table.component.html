@@ -86,9 +86,10 @@
     </div>
     <div class="row">
       <mat-paginator
-      [length]="tableColumns.length"
+      [length]="totalCount"
       [pageSize]="pageSize"
-      [pageSizeOptions]="[5, 10, 20, 50, 100]"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[1,5, 10, 20, 50, 100]"
       color="primary"
       (page)="loadPage($event)"
       >

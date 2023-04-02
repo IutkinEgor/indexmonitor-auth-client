@@ -13,9 +13,9 @@ import * as fromSharedTypes from '../../../0100 shared/types/_index';
 import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 
 import * as fromClientTypes from '../../../0500 clients/types/_index';
-import * as fromClientTableAction from '../../../0500 clients/store/client-table/client-table.action'
-import * as fromClientTableSelector from '../../../0500 clients/store/client-table/client-table.selector';
-import * as fromClientRegisterAction from '../../../0500 clients/store/client-register/client-register.action';
+import * as fromClientAction from '../../store/client.action'
+import * as fromClientSelector from '../../../0500 clients/store/client.selector';
+import * as fromClientRegisterAction from '../../../0500 clients/store/client.action';
 
 
 @Component({
@@ -34,6 +34,8 @@ export class ClientTableComponent implements OnInit  {
 
   //Tabel
   pageSize: number = 10;
+  pageIndex: number = 0;
+  totalCount: number = 0;
   dataSource: MatTableDataSource<fromClientTypes.ClientTableInterface>;
   noData: fromClientTypes.ClientTableInterface[] = [<fromClientTypes.ClientTableInterface>{}];
   modelEdit: fromClientTypes.ClientTableInterface;
@@ -53,33 +55,33 @@ export class ClientTableComponent implements OnInit  {
   ){}
 
   ngOnInit(): void {
-    this.store.dispatch(fromClientTableAction.clientPageLoadRequest({page: 0, size: 20}));
-    this.isLoading$ = this.store.pipe(select(fromClientTableSelector.isLoading));
-    this.isSuccess$ = this.store.pipe(select(fromClientTableSelector.isSuccess));
-    this.store.pipe(select(fromClientTableSelector.getData)).subscribe((data) => this.initializeTable(data));
-    this.actionsSubject.pipe(ofType(fromClientTableAction.clientDeleteSuccess)).subscribe(() => {
+    this.store.dispatch(fromClientAction.clientPageLoadRequest({page: 0, size: 20}));
+    this.isLoading$ = this.store.pipe(select(fromClientSelector.isClientPageLoading));
+    this.isSuccess$ = this.store.pipe(select(fromClientSelector.isClientPageSuccess));
+    this.store.pipe(select(fromClientSelector.getClientPageTotalCount)).subscribe((data) =>  { if(data) this.totalCount = data});
+    this.store.pipe(select(fromClientSelector.getClientPageData)).subscribe((data) =>  { if(data) this.initializeTable(data) });
+    this.actionsSubject.pipe(ofType(fromClientAction.clientDeleteSuccess)).subscribe(() => {
       this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Client was deleted") }));
-      this.store.dispatch(fromClientTableAction.clientPageLoadRequest({page: 0, size: 20}));
+      this.store.dispatch(fromClientAction.clientPageLoadRequest({page: this.pageIndex, size: this.pageSize}));
     });
     this.actionsSubject.pipe(ofType(fromClientRegisterAction.clientRegisterSuccess)).subscribe(() => {
       this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Client registered") }));
-      this.store.dispatch(fromClientTableAction.clientPageLoadRequest({page: 0, size: 20}));
+      this.store.dispatch(fromClientAction.clientPageLoadRequest({page: this.pageIndex, size: this.pageSize}));
     });
   }
 
 
-  initializeTable(data: fromClientTypes.ClientTableInterface[] | null){
-    if (data != null) {
+  initializeTable(data: fromClientTypes.ClientTableInterface[]){
       this.dataSource = new MatTableDataSource(
         data.length ? data : this.noData
       );
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    }
   }
   loadPage(event: PageEvent){
     this.pageSize = event.pageSize;
-    this.store.dispatch(fromClientTableAction.clientPageLoadRequest({page: event.pageIndex, size: event.pageSize}))
+    this.pageIndex = event.pageIndex;
+    this.store.dispatch(fromClientAction.clientPageLoadRequest({page: event.pageIndex, size: event.pageSize}))
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -104,7 +106,7 @@ export class ClientTableComponent implements OnInit  {
     
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.store.dispatch(fromClientTableAction.clientDeleteRequest({id}));
+        this.store.dispatch(fromClientAction.clientDeleteRequest({id}));
       }
     })
   }
