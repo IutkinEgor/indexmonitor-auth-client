@@ -53,8 +53,6 @@ import * as fromDirectives from '../0010 directives/_index';
 import { ErrorResponseInterceptor } from '../0011 interceptors/error-response.interceptor';
 
 //Shared Services
-import { TmpService } from './services/tmp.service';
-import { SharedService } from './services/shared.service';
 import { NotificationSnackbarService } from './services/notification-snackbar.service';
 
 //App reducer
@@ -62,9 +60,6 @@ import { reducer } from './store/shared.reducer';
 
 //App effects
 import { SharedEffects } from './store/shared.effect';
-
-
-
 
 
 
@@ -174,9 +169,6 @@ import { SharedEffects } from './store/shared.effect';
     MatStepperModule,
   ],
   providers: [
-    //Shared Services
-    TmpService,
-    SharedService,
     NotificationSnackbarService,
     ConfirmDialogComponent,
     {

@@ -3,7 +3,7 @@ import { combineLatest, map, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,13 +12,12 @@ import * as fromSharedTypes from '../../../0100 shared/types/_index';
 import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 
 import * as fromClientTypes from '../../../0500 clients/types/_index';
-import * as fromClientCardAction from '../../../0500 clients/store/client-card/client-card.action';
-import * as fromClientCardSelector from '../../../0500 clients/store/client-card/client-card.selector';
+import * as fromClientAction from '../../store/client.action';
+import * as fromClientSelector from '../../../0500 clients/store/client.selector';
 
-import * as fromScopeTypes from '../../../0600 scopes/types/_index';
 import * as fromScopeAction from '../../../0600 scopes/store/scope.action';
 import * as fromScopeSelector from '../../../0600 scopes/store/scope.selector';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-client-card-scope-add-dialog',
@@ -57,8 +56,8 @@ export class ClientCardScopeAddDialogComponent {
   ngOnInit(): void {
     this.store.dispatch(fromScopeAction.scopePageLoadRequest({ page: 0, size: 100 }));
 
-    this.isClientScopesLoading$ = this.store.pipe(select(fromClientCardSelector.isScopesLoading));
-    this.isClientScopesLoadedSuccess$ = this.store.pipe(select(fromClientCardSelector.isScopesLoadedSuccess));
+    this.isClientScopesLoading$ = this.store.pipe(select(fromClientSelector.isScopesLoading));
+    this.isClientScopesLoadedSuccess$ = this.store.pipe(select(fromClientSelector.isScopesLoadedSuccess));
     this.isAllScopesLoading$ = this.store.pipe(select(fromScopeSelector.isTableLoading));
     this.isAllScopesLoadedSuccess$ = this.store.pipe(select(fromScopeSelector.isTableLoadedSuccess));
 
@@ -69,7 +68,7 @@ export class ClientCardScopeAddDialogComponent {
       map(([bool1, bool2]) => bool1 && bool2)
     );
 
-    this.store.pipe(select(fromClientCardSelector.getScopesData))
+    this.store.pipe(select(fromClientSelector.getScopesData))
       .subscribe((data) =>  { if(data) { 
         this.clientScopes = data;
        } });
@@ -80,9 +79,9 @@ export class ClientCardScopeAddDialogComponent {
       this.initializeTable(this.avalibleScopes);
     });
 
-    this.actionsSubject.pipe(ofType(fromClientCardAction.clientScopesAddSuccess)).subscribe(() => {
+    this.actionsSubject.pipe(ofType(fromClientAction.clientScopesAddSuccess)).subscribe(() => {
       this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Client scopes was added") }));
-      this.store.dispatch(fromClientCardAction.clientScopesLoadRequest({ id: this.data.id }));
+      this.store.dispatch(fromClientAction.clientScopesLoadRequest({ id: this.data.id }));
       this.dialogRef.close();
   });
   }
@@ -112,7 +111,7 @@ export class ClientCardScopeAddDialogComponent {
   }
 
   confirm(){
-    this.store.dispatch(fromClientCardAction.clientScopesAddRequest({id: this.data.id, payload: {
+    this.store.dispatch(fromClientAction.clientScopesAddRequest({id: this.data.id, payload: {
       scopeIds: this.selectedList
     }}))
   }

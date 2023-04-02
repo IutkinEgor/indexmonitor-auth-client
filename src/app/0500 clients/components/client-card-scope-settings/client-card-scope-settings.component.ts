@@ -15,8 +15,8 @@ import * as fromSharedTypes from '../../../0100 shared/types/_index';
 import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 
 import * as fromClientTypes from '../../../0500 clients/types/_index';
-import * as fromClientCardAction from '../../../0500 clients/store/client-card/client-card.action';
-import * as fromClientCardSelector from '../../../0500 clients/store/client-card/client-card.selector';
+import * as fromClientAction from '../../store/client.action';
+import * as fromClientSelector from '../../../0500 clients/store/client.selector';
 
 @Component({
   selector: 'app-client-card-scope-settings',
@@ -45,18 +45,18 @@ export class ClientCardScopeSettingsComponent {
   clientScopes: fromClientTypes.ClientScopeInterface[] = [];
 
   ngOnInit(): void {
-    this.store.dispatch(fromClientCardAction.clientScopesLoadRequest({ id: this.route.parent?.snapshot.paramMap.get('clientId') as string }))
-    this.isLoading$ = this.store.pipe(select(fromClientCardSelector.isScopesLoading));
-    this.isLoadedSuccess$ = this.store.pipe(select(fromClientCardSelector.isScopesLoadedSuccess));
-    this.store.pipe(select(fromClientCardSelector.getScopesData))
+    this.store.dispatch(fromClientAction.clientScopesLoadRequest({ id: this.route.parent?.snapshot.paramMap.get('clientId') as string }))
+    this.isLoading$ = this.store.pipe(select(fromClientSelector.isScopesLoading));
+    this.isLoadedSuccess$ = this.store.pipe(select(fromClientSelector.isScopesLoadedSuccess));
+    this.store.pipe(select(fromClientSelector.getScopesData))
       .subscribe((data) =>  { if(data) { 
         this.clientScopes = data;
         this.initializeTable(data);
        } });
 
-    this.actionsSubject.pipe(ofType(fromClientCardAction.clientScopesRemoveSuccess)).subscribe(() => {
+    this.actionsSubject.pipe(ofType(fromClientAction.clientScopesRemoveSuccess)).subscribe(() => {
         this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Client scopes was removed") }));
-        this.store.dispatch(fromClientCardAction.clientScopesLoadRequest({ id: this.route.parent?.snapshot.paramMap.get('clientId') as string }));
+        this.store.dispatch(fromClientAction.clientScopesLoadRequest({ id: this.route.parent?.snapshot.paramMap.get('clientId') as string }));
       });
   }
 
@@ -94,7 +94,7 @@ export class ClientCardScopeSettingsComponent {
     
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.store.dispatch(fromClientCardAction.clientScopesRemoveRequest({
+        this.store.dispatch(fromClientAction.clientScopesRemoveRequest({
           clientId: this.route.parent?.snapshot.paramMap.get('clientId') as string,
           scopeId: id   
         }))

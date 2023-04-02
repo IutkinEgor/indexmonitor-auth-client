@@ -1,17 +1,11 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormControlStatus, FormGroup, Validators } from '@angular/forms';
-import { ActionsSubject, select, Store } from '@ngrx/store';
+import { FormArray, FormBuilder, FormControlStatus, FormGroup, Validators } from '@angular/forms';
+import { ActionsSubject, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import * as fromSharedTypes from '../../../0100 shared/types/_index';
-import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 import * as fromClientTypes from '../../../0500 clients/types/_index';
-import * as fromClientRegisterAction from '../../../0500 clients/store/client-register/client-register.action'
-import * as fromClientRegisterSelector from '../../../0500 clients/store/client-register/client-register.selector';
-import * as fromClientCardAction from '../../../0500 clients/store/client-card/client-card.action'
-import * as fromClientCardSelector from '../../../0500 clients/store/client-card/client-card.selector';
-
+import * as fromClientAction from '../../../0500 clients/store/client.action'
 
 @Component({
   selector: 'app-client-register-dialog',
@@ -34,7 +28,7 @@ export class ClientRegisterDialogComponent {
  ngOnInit(): void {
     this.initializeForm();
     this.initializeValue();
-    this.actionsSubject.pipe(ofType(fromClientRegisterAction.clientRegisterSuccess)).subscribe(() => {
+    this.actionsSubject.pipe(ofType(fromClientAction.clientRegisterSuccess)).subscribe(() => {
       this.dialogRef.close();
     });
  }
@@ -98,7 +92,7 @@ export class ClientRegisterDialogComponent {
     var authenticationMethods: Array<string> = new Array();
     authenticationMethods.push(authenticationMethodValues);
 
-    this.store.dispatch(fromClientRegisterAction.clientRegister({payload: {
+    this.store.dispatch(fromClientAction.clientRegisterRequest({payload: {
       clientId: this.form.value.clientId,
       name: this.form.value.name,
       description: this.form.value.description,

@@ -10,8 +10,8 @@ import { ConfirmDialogComponent } from 'src/app/0100 shared/components/confirm-d
 import * as fromSharedTypes from '../../../0100 shared/types/_index';
 import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 import * as fromClientTypes from '../../../0500 clients/types/_index';
-import * as fromClientCardAction from '../../../0500 clients/store/client-card/client-card.action'
-import * as fromClientCardSelector from '../../../0500 clients/store/client-card/client-card.selector';
+import * as fromClientAction from '../../store/client.action'
+import * as fromClientSelector from '../../../0500 clients/store/client.selector';
 
 
 @Component({
@@ -37,14 +37,14 @@ export class ClientCardSettingsComponent {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.store.dispatch(fromClientCardAction.clientSettingsLoadRequest({ id: this.route.parent?.snapshot.params['clientId'] as string }));
-    this.isLoading$ = this.store.pipe(select(fromClientCardSelector.isClientSettingsLoading));
-    this.isSuccess$ = this.store.pipe(select(fromClientCardSelector.isClientSettingsLoadedSuccess));
-    this.store.pipe(select(fromClientCardSelector.getClientSettingsData)).subscribe((data) =>  { if(data) { this.initializeValue(data) } });
+    this.store.dispatch(fromClientAction.clientSettingsLoadRequest({ id: this.route.parent?.snapshot.params['clientId'] as string }));
+    this.isLoading$ = this.store.pipe(select(fromClientSelector.isClientSettingsLoading));
+    this.isSuccess$ = this.store.pipe(select(fromClientSelector.isClientSettingsLoadedSuccess));
+    this.store.pipe(select(fromClientSelector.getClientSettingsData)).subscribe((data) =>  { if(data) { this.initializeValue(data) } });
 
-    this.actionsSubject.pipe(ofType(fromClientCardAction.clientSettingsUpdateSuccess)).subscribe(() => {
+    this.actionsSubject.pipe(ofType(fromClientAction.clientSettingsUpdateSuccess)).subscribe(() => {
         this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Client updated") }));
-        this.store.dispatch(fromClientCardAction.clientSettingsLoadRequest({ id: this.route.parent?.snapshot.params['clientId'] as string }));
+        this.store.dispatch(fromClientAction.clientSettingsLoadRequest({ id: this.route.parent?.snapshot.params['clientId'] as string }));
       });
   }
   
@@ -125,7 +125,7 @@ export class ClientCardSettingsComponent {
           var authenticationMethods: Array<string> = new Array();
           authenticationMethods.push(this.form.get('authenticationMethods')?.value);
       
-          this.store.dispatch(fromClientCardAction.clientSettingsUpdateRequest({
+          this.store.dispatch(fromClientAction.clientSettingsUpdateRequest({
             id: this.route.parent?.snapshot.params['clientId'] as string, 
             payload: {
               clientId: this.form.value.clientId,

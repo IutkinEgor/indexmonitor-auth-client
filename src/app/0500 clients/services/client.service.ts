@@ -26,9 +26,9 @@ export class ClientService {
     loadClientScopes(id: string): Observable<fromSharedTypes.BaseResponseInterface<fromClientTypes.ClientScopeInterface[]>>{
         return this.http.get<fromSharedTypes.BaseResponseInterface<fromClientTypes.ClientScopeInterface[]>>(this.baseUrl + '/' + id + '/scopes', this.config);
     }
-    loadClientPage(page: number, size: number): Observable<fromSharedTypes.BaseResponseInterface<fromClientTypes.ClientTableInterface[]>>{
+    loadClientPage(page: number, size: number): Observable<fromSharedTypes.PageResponseInterface<fromClientTypes.ClientTableInterface[]>>{
         let params = new HttpParams().set('page', page).set('size', size);
-        return this.http.get<fromSharedTypes.BaseResponseInterface<fromClientTypes.ClientTableInterface[]>>(this.baseUrl, {params: params, headers: this.headers});
+        return this.http.get<fromSharedTypes.PageResponseInterface<fromClientTypes.ClientTableInterface[]>>(this.baseUrl, {params: params, headers: this.headers});
     }
     registerClient(client: fromClientTypes.ClientRegisterInterface): Observable<fromSharedTypes.BaseResponseInterface<Object>>{
         return this.http.post<fromSharedTypes.BaseResponseInterface<Object>>(this.baseUrl, client,this.config);

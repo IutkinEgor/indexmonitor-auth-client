@@ -1,7 +1,5 @@
 export { AuthMethodEnum } from './auth-method.enum'
 export { AuthGrantTypeEnum } from './auth-grant-type.enum'
-//export { ClientCardInterface } from './client-card.interface'
-
 
 export { ClientTableInterface } from './client-table.interface'
 
