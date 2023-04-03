@@ -1,11 +1,11 @@
-# Indexmonitor Authorization Client
+# <img src="https://github.com/IutkinEgor/indexmonitor-assets/blob/main/logo/logo-primary.svg" height="60px"> Indexmonitor Authorization Client
 
-The Indexmonitor Authorization Client is built on top of Angular 15 and provides a clean user interface for the Indexmonitor Authorization Server. It utilizes Angular Material library and Bootstrap 5.0 for the grid system, as flex-layout is not supported in Angular 15. It also uses ngrx for state management.
+The Indexmonitor Authorization Client is built on top of Angular 15 and provides a clean user interface for the [Indexmonitor Authorization Server](https://github.com/IutkinEgor/indexmonitor-auth-server) project. It utilizes Angular Material library and Bootstrap 5.0 for the grid system, as flex-layout is not supported in Angular 15. It also uses ngrx for state management.
 
 ## Features
 
 ### User Interface
-
+<img src="https://github.com/IutkinEgor/indexmonitor-assets/blob/main/gif/IndexMonitor%20-%20Auth%20Server.gif" height="372px" wight="720px"> 
 The Indexmonitor Authorization Client provides the following UI features:
 
 * Clients and scopes management
