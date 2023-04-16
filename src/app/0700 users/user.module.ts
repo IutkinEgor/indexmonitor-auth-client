@@ -11,11 +11,12 @@ import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserCardSettingsComponent } from './components/user-card-settings/user-card-settings.component';
 import { UserCardProfileComponent } from './components/user-card-profile/user-card-profile.component';
 import { UserCardAuthoritiesComponent } from './components/user-card-authorities/user-card-authorities.component';
-import { UserCardAuthoritiesAddDialogComponent } from './components/user-card-authorities-add-dialog/user-card-authorities-add-dialog.component';
 import { UserCardRolesComponent } from './components/user-card-roles/user-card-roles.component';
 import { UserCardRolesAddDialogComponent } from './components/user-card-roles-add-dialog/user-card-roles-add-dialog.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { UserRegisterDialogComponent } from './components/user-register-dialog/user-register-dialog.component';
+import { UserCardAuthoritiesAddDialogComponent } from './components/user-card-authorities-add-dialog/user-card-authorities-add-dialog.component';
+
 
 //App services
 import { UserService } from './services/user.service';
@@ -25,6 +26,7 @@ import { reducer } from './store/user.reducer';
 
 //App effects
 import { UserEffects } from './store/user.effect';
+
 
 
 

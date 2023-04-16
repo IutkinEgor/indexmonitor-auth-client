@@ -7,6 +7,7 @@ import { ofType } from '@ngrx/effects';
 import * as fromSharedTypes from '../../../0100 shared/types/_index';
 import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 import * as fromIdentityAction from '../../../0200 identity/store/identity.action';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -37,8 +38,8 @@ export class ConnectServerDialogComponent {
 
   initializeForm(): void {
     this.form = this.formBuilder.group({
-      issuer: ['http://192.168.0.101:8080', Validators.required],
-      clientId: ['angular_ui_none', Validators.required],
+      issuer: [environment.authServerAddress, Validators.required],
+      clientId: [environment.clientId, Validators.required],
       clientSecret: []
     });
   }

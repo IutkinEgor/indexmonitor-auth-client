@@ -9,7 +9,6 @@ import * as fromUserTypes from '../types/_index';
 @Injectable()
 export class UserService {
     baseUrl = localStorage.getItem("issuer") + "/api/users";
-    //baseUrl =  environment.authServer + "/api/users";
     defaultHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     config = { headers: this.defaultHeaders }
 

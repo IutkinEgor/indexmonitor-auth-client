@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "auth-server": {
+    "im-auth-client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/auth-server",
+            "outputPath": "dist/im-auth-client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -40,6 +40,15 @@
           },
           "configurations": {
             "production": {
+              "sourceMap": false,
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": false
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -69,14 +78,14 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "auth-server:build:production"
+              "browserTarget": "im-auth-client:build:production"
             },
             "development": {
-              "browserTarget": "auth-server:build:development"
+              "browserTarget": "im-auth-client:build:development"
             }
           },
           "options": {
-             "host": "192.168.0.101",
+             "host": "127.0.0.1",
             "port": 4200,
             "sslKey": "ssl/localhost.key",
             "sslCert": "ssl/localhost.crt",

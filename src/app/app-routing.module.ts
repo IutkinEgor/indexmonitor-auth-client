@@ -73,7 +73,8 @@ const routes: Routes = [
       {    path: '', redirectTo: 'settings', pathMatch: 'full' },
       {    path: 'settings', component: AuthoritySettingsComponent },
       {    path: 'users', component: AuthorityUsageByUsersComponent },
-  ]},   
+  ]},  
+  {    path: '**', redirectTo: '/home' }, 
 ];
 
 @NgModule({

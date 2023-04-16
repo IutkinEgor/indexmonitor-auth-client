@@ -31,7 +31,6 @@ export class AuthService {
 
   initializeSubscribtion(){
     this.oauthService.events.subscribe( event => {
-      console.log("OAuth event type: " + event.type); 
       if(event.type == 'discovery_document_loaded'){
         this.store.dispatch(fromIdentityAction.discoveryDocumentLoaded());
       }
@@ -145,9 +144,6 @@ export class AuthService {
     var config: AuthConfig = fromIdenityConfig.authConfig;
     config.issuer = new String(localStorage.getItem("issuer")).toString();
     config.clientId = new String(localStorage.getItem("clientId")).toString()
-
-    console.log(config.clientId)
-    console.log(config.issuer)
     this.oauthService.configure(config);
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
       .then(() => { this.onSuccess();  this.router.navigate(['/home']);})

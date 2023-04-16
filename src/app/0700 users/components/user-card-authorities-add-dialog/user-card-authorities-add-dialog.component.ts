@@ -22,9 +22,9 @@ import * as fromAuthoritiesSelector from '../../../0900 authorities/store/author
 
 
 @Component({
-  selector: 'app-user-card-Authorities-add-dialog',
-  templateUrl: './user-card-Authorities-add-dialog.component.html',
-  styleUrls: ['./user-card-Authorities-add-dialog.component.scss']
+  selector: 'app-user-card-authorities-add-dialog',
+  templateUrl: './user-card-authorities-add-dialog.component.html',
+  styleUrls: ['./user-card-authorities-add-dialog.component.scss']
 })
 export class UserCardAuthoritiesAddDialogComponent {
   @ViewChild(MatSort, { static: false }) sort: MatSort;

@@ -19,6 +19,7 @@ import { ScopeModule } from './0600 scopes/scope.module';
 import { UserModule } from './0700 users/user.module';
 import { RoleModule } from './0800 roles/roles.module';
 import { AuthorityModule } from './0900 authorities/authority.module';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -28,10 +29,11 @@ import { AuthorityModule } from './0900 authorities/authority.module';
     //NGRX
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    !environment.production ? 
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode
-    }),
+    }) : [],
     StoreRouterConnectingModule.forRoot(),
 
     //App Modules default
