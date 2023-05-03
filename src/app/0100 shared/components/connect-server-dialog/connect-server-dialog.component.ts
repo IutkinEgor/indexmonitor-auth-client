@@ -8,6 +8,7 @@ import * as fromSharedTypes from '../../../0100 shared/types/_index';
 import * as fromSharedAction from '../../../0100 shared/store/shared.action';
 import * as fromIdentityAction from '../../../0200 identity/store/identity.action';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class ConnectServerDialogComponent {
     private store: Store,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ConnectServerDialogComponent>,
-    private actionsSubject: ActionsSubject
+    private actionsSubject: ActionsSubject,
+    private router: Router
     ) {}
 
   ngOnInit(): void {
@@ -50,7 +52,8 @@ export class ConnectServerDialogComponent {
         issuer: this.form.value.issuer,
         clientId: this.form.value.clientId,
         clientSecret: this.form.value.clientSecret
-      }
+      },
+      route: this.router.url
     }));
   }
 }

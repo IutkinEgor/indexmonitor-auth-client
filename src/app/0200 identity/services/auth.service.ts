@@ -125,29 +125,49 @@ export class AuthService {
     this.store.dispatch(fromIdentityAction.authenticationSuccess());
     this.store.dispatch(fromIdentityAction.userProfileLoaded({payload}));
   } 
-  login(request: AuthenticationRequestInterface) { 
+  login(request: AuthenticationRequestInterface,route?: String) { 
     var config: AuthConfig = fromIdenityConfig.authConfig;
     config.issuer = request.issuer;
     config.clientId = request.clientId;
     config.dummyClientSecret = request.clientSecret == null ? undefined : request.clientSecret;
     localStorage.setItem("issuer", request.issuer);
     localStorage.setItem("clientId", request.clientId);
-  
     this.oauthService.configure(config);
-    this.oauthService.loadDiscoveryDocument().then(()=> this.oauthService.initLoginFlow());
+    if(this.oauthService.getAccessToken() != null) {
+      this.logout();
+    }
+    this.oauthService.loadDiscoveryDocument().then(()=> this.oauthService.initLoginFlow(route?.toString()));
   } 
   logout() { 
     this.oauthService.logOut(); 
     
   }
-  callback(){
+  // callback(){
+  //   var config: AuthConfig = fromIdenityConfig.authConfig;
+  //   config.issuer = new String(localStorage.getItem("issuer")).toString();
+  //   config.clientId = new String(localStorage.getItem("clientId")).toString()
+  //   this.oauthService.configure(config);
+  //   this.oauthService.loadDiscoveryDocumentAndTryLogin()
+  //     .then(() => { this.onSuccess();  this.router.navigate(['/home']);})
+  //     .catch(() => this.router.navigate(['/welcome']));
+  // }
+
+  callback(route?: String){
     var config: AuthConfig = fromIdenityConfig.authConfig;
     config.issuer = new String(localStorage.getItem("issuer")).toString();
     config.clientId = new String(localStorage.getItem("clientId")).toString()
     this.oauthService.configure(config);
+    var redirectRoute = route == null || route?.length == 0 ? "/catalog" : decodeURIComponent(route.toString());
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
-      .then(() => { this.onSuccess();  this.router.navigate(['/home']);})
-      .catch(() => this.router.navigate(['/welcome']));
+      .then(() => { 
+        this.onSuccess();  
+        this.store.dispatch(fromSharedAction.notificationSuccess({ payload: fromSharedTypes.NotificationData.build("Authentication success!") }));
+        this.router.navigate([redirectRoute]);
+      })
+      .catch(() =>  { 
+        this.store.dispatch(fromSharedAction.notificationError({ payload: fromSharedTypes.NotificationData.build("Authentication failed! Try again latter.") }));
+        this.router.navigate(['/welcome']); 
+      });
   }
 
   navigateToHome() { this.router.navigateByUrl('/home');  }

@@ -37,7 +37,7 @@ export enum ActionType {
 }
 export const authenticationRequest = createAction(
     ActionType.AUTHENTICATION_REQUEST, 
-    props<{ payload: AuthenticationRequestInterface }>() //AuthenticationRequestInterface
+    props<{ payload: AuthenticationRequestInterface, route?: String }>() //AuthenticationRequestInterface
 );
 export const authenticationSuccess = createAction(
     ActionType.AUTHENTICATION_SUCCESS

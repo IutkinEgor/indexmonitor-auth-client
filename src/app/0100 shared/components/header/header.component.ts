@@ -1,21 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
-
-import * as fromIdenityTypes from '../../../0200 identity/types/_index'
-import * as fromIdentityAction from '../../../0200 identity/store/identity.action'
-import * as fromIdentitySelector from '../../../0200 identity/store/identity.selector';
-
-import * as fromSharedTypes from '../../../0100 shared/types/_index'
-import * as fromSharedAction from '../../../0100 shared/store/shared.action'
-
 import { select, Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { ConnectServerDialogComponent } from '../connect-server-dialog/connect-server-dialog.component';
 import { map, Observable } from 'rxjs';
 import { UserInfo } from 'angular-oauth2-oidc';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
+import * as fromIdentityAction from '../../../0200 identity/store/identity.action'
+import * as fromIdentitySelector from '../../../0200 identity/store/identity.selector';
+
+import * as fromSharedTypes from '../../../0100 shared/types/_index'
+import * as fromSharedAction from '../../../0100 shared/store/shared.action'
 
 @Component({
   selector: 'app-header',
